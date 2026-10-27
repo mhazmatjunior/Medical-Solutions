@@ -136,8 +136,13 @@ export default function Home({ onOpenQuote }) {
           <div className="text-center max-w-4xl mx-auto space-y-3.5 sm:space-y-4">
             
             {/* Main Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15] sm:leading-[1.12]">
-              Precision Logistics. Certified Healthcare. Empowered Staffing. <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 via-primary-700 to-accent-600">Agile Fleet.</span>
+            <h1 className="text-3xl sm:text-4.5xl lg:text-5.5xl font-extrabold text-slate-900 tracking-tight leading-[1.18] sm:leading-[1.15]">
+              <span className="block">Precision Logistics.</span>
+              <span className="block">Certified Healthcare.</span>
+              <span className="block">Empowered Staffing.</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary-600 via-primary-700 to-accent-600">
+                Agile Fleet.
+              </span>
             </h1>
 
             {/* Subtitle */}
