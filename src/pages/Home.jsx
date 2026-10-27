@@ -203,11 +203,6 @@ export default function Home({ onOpenQuote }) {
               </div>
             ))}
           </div>
-                  {stat.sub}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
