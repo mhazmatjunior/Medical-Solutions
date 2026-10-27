@@ -66,11 +66,6 @@ export default function Logistics({ onOpenQuote }) {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl space-y-5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-500/20 text-primary-300 text-xs font-semibold border border-primary-500/30">
-              <Truck className="w-3.5 h-3.5 text-primary-400" />
-              GDP Good Distribution Practice Certified Logistics
-            </div>
-
             <h1 className="text-3xl sm:text-5xl lg:text-5.5xl font-extrabold tracking-tight leading-tight">
               End-to-End Cold Chain & Pharmaceutical Freight Logistics
             </h1>
@@ -221,9 +216,6 @@ export default function Logistics({ onOpenQuote }) {
             {/* Form Left */}
             <div className="lg:col-span-7 space-y-6">
               <div>
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary-50 text-primary-700 mb-2">
-                  Interactive Route Planner
-                </span>
                 <h3 className="text-2xl sm:text-3xl font-bold text-slate-900">
                   Freight Transit & Compliance Estimator
                 </h3>
@@ -339,10 +331,6 @@ export default function Logistics({ onOpenQuote }) {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-3xl p-8 sm:p-12 border border-blue-200/60">
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-semibold">
-              <Pill className="w-3.5 h-3.5" />
-              Direct-to-Pharmacy Supply Chain
-            </div>
             <h3 className="text-2xl sm:text-3xl font-bold text-slate-900">
               Medicines & Pharmacy Dispensing Logistics Network
             </h3>

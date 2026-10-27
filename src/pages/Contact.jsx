@@ -41,9 +41,6 @@ export default function Contact() {
         <div className="absolute inset-0 bg-dot-pattern opacity-10 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl space-y-4">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-500/20 text-primary-300 text-xs font-semibold border border-primary-500/30">
-              <Clock className="w-3.5 h-3.5 text-primary-400" /> 24/7 Global Operations Desk
-            </span>
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
               Connect With Our Corporate Solutions Team
             </h1>

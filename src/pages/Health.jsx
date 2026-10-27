@@ -47,11 +47,6 @@ export default function Health({ onOpenQuote }) {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl space-y-5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold border border-teal-500/30">
-              <Activity className="w-3.5 h-3.5 text-teal-400" />
-              ISO 13485:2016 & CE / FDA Cleared Healthcare Provision
-            </div>
-
             <h1 className="text-3xl sm:text-5xl lg:text-5.5xl font-extrabold tracking-tight leading-tight">
               Hospital Equipments, Medical Devices & Clinical Consumables
             </h1>
@@ -311,9 +306,6 @@ export default function Health({ onOpenQuote }) {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gradient-to-r from-teal-900 to-navy-950 text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden border border-teal-800 shadow-xl">
           <div className="max-w-3xl space-y-4">
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-teal-500/20 text-teal-300 border border-teal-500/30">
-              Pharmacies & Corporate Procurement
-            </span>
             <h3 className="text-2xl sm:text-3xl font-bold tracking-tight">
               Direct Wholesale Formulary Supply for Pharmacy Networks
             </h3>

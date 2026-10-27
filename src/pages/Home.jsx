@@ -135,12 +135,6 @@ export default function Home({ onOpenQuote }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto space-y-3.5 sm:space-y-4">
             
-            {/* Pill Badge */}
-            <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-primary-50 border border-primary-200/80 text-primary-700 text-[11px] sm:text-sm font-semibold tracking-tight shadow-xs max-w-full">
-              <span className="w-2 h-2 rounded-full bg-primary-500 animate-ping shrink-0"></span>
-              <span className="truncate sm:overflow-visible">Integrated B2B Healthcare Infrastructure & Global Supply Chain</span>
-            </div>
-
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15] sm:leading-[1.12]">
               Precision Logistics. Certified Healthcare. Empowered Staffing. <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 via-primary-700 to-accent-600">Agile Fleet.</span>
@@ -303,9 +297,6 @@ export default function Home({ onOpenQuote }) {
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
           <div className="max-w-3xl mb-8">
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary-500/20 text-primary-300 border border-primary-500/30 mb-3">
-              Interactive Needs Navigator
-            </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
               What does your healthcare organization require today?
             </h2>
@@ -594,9 +585,6 @@ export default function Home({ onOpenQuote }) {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gradient-to-r from-primary-700 via-primary-600 to-accent-600 rounded-3xl p-8 sm:p-12 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="max-w-2xl space-y-3 text-center lg:text-left">
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-white/20 text-white backdrop-blur-md">
-              Immediate Consultations Available
-            </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
               Ready to Upgrade Your Healthcare Supply Chain & Operations?
             </h2>

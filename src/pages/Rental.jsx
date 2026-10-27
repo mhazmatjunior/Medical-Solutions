@@ -42,11 +42,6 @@ export default function Rental({ onOpenQuote }) {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl space-y-5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 text-xs font-semibold border border-sky-500/30">
-              <Car className="w-3.5 h-3.5 text-sky-400" />
-              Emergency Fleet & Specialized Heavy Medical Equipment Leasing
-            </div>
-
             <h1 className="text-3xl sm:text-5xl lg:text-5.5xl font-extrabold tracking-tight leading-tight">
               Ambulance Fleet, Heavy Equipment & Mobile Dental Clinics
             </h1>
