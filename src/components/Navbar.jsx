@@ -139,14 +139,14 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
           </div>
         </div>
 
-        {/* Main Enterprise Navigation Bar (Abdulla Fouad Group clean, crisp layout) */}
+        {/* Main Enterprise Navigation Bar (Abdulla Fouad Group clean, crisp balanced layout) */}
         <div className="bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-22 flex items-center justify-between">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
             
-            {/* Enterprise Logo: Left-aligned */}
-            <Link to="/" className="flex items-center gap-3.5 group shrink-0">
+            {/* Enterprise Logo: Left-aligned with compact proportions so it never crowds links */}
+            <Link to="/" className="flex items-center gap-3 group shrink-0">
               <div className="flex items-center justify-center text-primary-700">
-                <svg className="w-9 h-9 sm:w-10 sm:h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M20 4L4 12V28L20 36L36 28V12L20 4Z" stroke="#0369A1" strokeWidth="2.5" strokeLinejoin="round"/>
                   <path d="M20 14V26" stroke="#0284C7" strokeWidth="3" strokeLinecap="round"/>
                   <path d="M14 20H26" stroke="#0284C7" strokeWidth="3" strokeLinecap="round"/>
@@ -154,173 +154,173 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                 </svg>
               </div>
               <div className="flex flex-col">
-                <span className="font-display font-extrabold text-xl sm:text-2xl tracking-tight text-slate-900 leading-none">
+                <span className="font-display font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 leading-none">
                   MEDICAL <span className="text-primary-700">SOLUTIONS</span>
                 </span>
-                <span className="text-[10px] tracking-wider uppercase font-semibold text-slate-500 mt-1">
-                  Healthcare & Enterprise Infrastructure
+                <span className="text-[9px] tracking-wider uppercase font-semibold text-slate-400 mt-1">
+                  Healthcare & Enterprise
                 </span>
               </div>
             </Link>
 
-            {/* Desktop Navigation Links & Action Items: Right-aligned */}
-            <div className="hidden lg:flex items-center gap-6 xl:gap-8">
-              <nav className="flex items-center gap-5 xl:gap-7">
-                <NavLink 
-                  to="/" 
-                  end
-                  className={({ isActive }) => `text-[13px] font-bold uppercase tracking-wider transition-colors py-2 border-b-2 ${
-                    isActive 
-                      ? 'text-primary-700 border-primary-600' 
+            {/* Desktop Navigation Links: Balanced center positioning with healthy breathing room */}
+            <nav className="hidden lg:flex items-center gap-4 xl:gap-7 2xl:gap-8 h-full text-xs xl:text-[13px]">
+              <NavLink 
+                to="/" 
+                end
+                className={({ isActive }) => `h-full flex items-center font-bold uppercase tracking-wider transition-colors border-b-2 whitespace-nowrap ${
+                  isActive 
+                    ? 'text-primary-700 border-primary-600 font-extrabold' 
+                    : 'text-slate-700 hover:text-primary-700 border-transparent'
+                }`}
+              >
+                HOME
+              </NavLink>
+
+              <a 
+                href="#who-we-are"
+                onClick={(e) => {
+                  if (location.pathname !== '/') {
+                    e.preventDefault();
+                    navigate('/#who-we-are');
+                  }
+                }}
+                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-colors border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap"
+              >
+                WHO WE ARE
+              </a>
+
+              {/* OUR SECTORS Dropdown */}
+              <div className="relative h-full flex items-center" ref={dropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setSectorsOpen(!sectorsOpen)}
+                  onMouseEnter={() => setSectorsOpen(true)}
+                  className={`h-full flex items-center gap-1 font-bold uppercase tracking-wider transition-colors border-b-2 whitespace-nowrap ${
+                    sectorsOpen || ['/health', '/logistics', '/manpower', '/rental'].includes(location.pathname)
+                      ? 'text-primary-700 border-primary-600 font-extrabold'
                       : 'text-slate-700 hover:text-primary-700 border-transparent'
                   }`}
                 >
-                  HOME
-                </NavLink>
+                  <span>OUR SECTORS</span>
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${sectorsOpen ? 'rotate-180 text-primary-700' : 'text-slate-400'}`} />
+                </button>
 
-                <a 
-                  href="#who-we-are"
-                  onClick={(e) => {
-                    if (location.pathname !== '/') {
-                      e.preventDefault();
-                      navigate('/#who-we-are');
-                    }
-                  }}
-                  className="text-[13px] font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-colors py-2 border-b-2 border-transparent hover:border-primary-600 cursor-pointer"
-                >
-                  WHO WE ARE
-                </a>
-
-                {/* OUR SECTORS Dropdown */}
-                <div className="relative" ref={dropdownRef}>
-                  <button
-                    type="button"
-                    onClick={() => setSectorsOpen(!sectorsOpen)}
-                    onMouseEnter={() => setSectorsOpen(true)}
-                    className={`text-[13px] font-bold uppercase tracking-wider transition-colors py-2 border-b-2 inline-flex items-center gap-1.5 ${
-                      sectorsOpen || ['/health', '/logistics', '/manpower', '/rental'].includes(location.pathname)
-                        ? 'text-primary-700 border-primary-600'
-                        : 'text-slate-700 hover:text-primary-700 border-transparent'
-                    }`}
+                {/* Dropdown Menu */}
+                {sectorsOpen && (
+                  <div 
+                    onMouseLeave={() => setSectorsOpen(false)}
+                    className="absolute top-full left-1/2 -translate-x-1/2 w-[460px] bg-white rounded-b-xl shadow-2xl border border-slate-200 p-3 grid grid-cols-1 gap-1.5 z-50 animate-fadeIn"
                   >
-                    <span>OUR SECTORS</span>
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${sectorsOpen ? 'rotate-180 text-primary-700' : 'text-slate-400'}`} />
-                  </button>
-
-                  {/* Dropdown Menu */}
-                  {sectorsOpen && (
-                    <div 
-                      onMouseLeave={() => setSectorsOpen(false)}
-                      className="absolute top-full left-0 mt-3 w-[460px] bg-white rounded-xl shadow-2xl border border-slate-200 p-3 grid grid-cols-1 gap-1.5 z-50 animate-fadeIn"
-                    >
-                      <div className="px-3 py-2 border-b border-slate-100 flex items-center justify-between">
-                        <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
-                          Operating Business Sectors
-                        </span>
-                        <span className="text-[10px] font-bold text-primary-700">
-                          4 Primary Divisions
-                        </span>
-                      </div>
-
-                      {sectors.map((sec) => {
-                        const Icon = sec.icon;
-                        return (
-                          <Link
-                            key={sec.path}
-                            to={sec.path}
-                            onClick={() => setSectorsOpen(false)}
-                            className="flex items-start gap-3.5 p-3 rounded-lg hover:bg-slate-50 transition-colors group"
-                          >
-                            <div className="w-9 h-9 rounded-lg bg-primary-50 text-primary-700 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-primary-700 group-hover:text-white transition-colors">
-                              <Icon className="w-4.5 h-4.5" />
-                            </div>
-                            <div className="flex-1">
-                              <div className="flex items-center justify-between">
-                                <span className="text-sm font-bold text-slate-900 group-hover:text-primary-700 transition-colors">
-                                  {sec.title}
-                                </span>
-                                <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-600">
-                                  {sec.badge}
-                                </span>
-                              </div>
-                              <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">
-                                {sec.desc}
-                              </p>
-                            </div>
-                          </Link>
-                        );
-                      })}
-
-                      <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-between text-xs text-slate-600">
-                        <span>View full multi-sector capabilities</span>
-                        <Link 
-                          to="/#our-sectors"
-                          onClick={() => setSectorsOpen(false)}
-                          className="text-primary-700 font-bold hover:underline inline-flex items-center gap-1"
-                        >
-                          All Sectors <ArrowRight className="w-3.5 h-3.5" />
-                        </Link>
-                      </div>
+                    <div className="px-3 py-2 border-b border-slate-100 flex items-center justify-between">
+                      <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
+                        Operating Business Sectors
+                      </span>
+                      <span className="text-[10px] font-bold text-primary-700">
+                        4 Primary Divisions
+                      </span>
                     </div>
-                  )}
-                </div>
 
-                <a 
-                  href="#partners"
-                  onClick={(e) => {
-                    if (location.pathname !== '/') {
-                      e.preventDefault();
-                      navigate('/#partners');
-                    }
-                  }}
-                  className="text-[13px] font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-colors py-2 border-b-2 border-transparent hover:border-primary-600 cursor-pointer"
-                >
-                  PARTNERS & ALLIANCES
-                </a>
+                    {sectors.map((sec) => {
+                      const Icon = sec.icon;
+                      return (
+                        <Link
+                          key={sec.path}
+                          to={sec.path}
+                          onClick={() => setSectorsOpen(false)}
+                          className="flex items-start gap-3.5 p-3 rounded-lg hover:bg-slate-50 transition-colors group"
+                        >
+                          <div className="w-9 h-9 rounded-lg bg-primary-50 text-primary-700 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-primary-700 group-hover:text-white transition-colors">
+                            <Icon className="w-4.5 h-4.5" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm font-bold text-slate-900 group-hover:text-primary-700 transition-colors">
+                                {sec.title}
+                              </span>
+                              <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-600">
+                                {sec.badge}
+                              </span>
+                            </div>
+                            <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">
+                              {sec.desc}
+                            </p>
+                          </div>
+                        </Link>
+                      );
+                    })}
 
-                <a 
-                  href="#media-center"
-                  onClick={(e) => {
-                    if (location.pathname !== '/') {
-                      e.preventDefault();
-                      navigate('/#media-center');
-                    }
-                  }}
-                  className="text-[13px] font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-colors py-2 border-b-2 border-transparent hover:border-primary-600 cursor-pointer"
-                >
-                  MEDIA CENTER
-                </a>
-
-                <NavLink 
-                  to="/contact" 
-                  className={({ isActive }) => `text-[13px] font-bold uppercase tracking-wider transition-colors py-2 border-b-2 ${
-                    isActive 
-                      ? 'text-primary-700 border-primary-600' 
-                      : 'text-slate-700 hover:text-primary-700 border-transparent'
-                  }`}
-                >
-                  CONTACT US
-                </NavLink>
-              </nav>
-
-              {/* Desktop Action Right (Search icon + Clean Blue CTA Button) */}
-              <div className="flex items-center gap-4 border-l border-slate-200 pl-4 xl:pl-6">
-                <button
-                  onClick={onOpenSearch}
-                  aria-label="Search"
-                  className="p-2 text-slate-500 hover:text-primary-700 transition-colors cursor-pointer"
-                  title="Search website (Ctrl+K)"
-                >
-                  <Search className="w-4.5 h-4.5" />
-                </button>
-
-                <button
-                  onClick={() => onOpenQuote()}
-                  className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg font-bold text-xs uppercase tracking-wider text-white bg-primary-700 hover:bg-primary-800 active:bg-primary-900 transition-all shadow-sm"
-                >
-                  Request a Quote
-                </button>
+                    <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                      <span>View full multi-sector capabilities</span>
+                      <Link 
+                        to="/#our-sectors"
+                        onClick={() => setSectorsOpen(false)}
+                        className="text-primary-700 font-bold hover:underline inline-flex items-center gap-1"
+                      >
+                        All Sectors <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
+
+              <a 
+                href="#partners"
+                onClick={(e) => {
+                  if (location.pathname !== '/') {
+                    e.preventDefault();
+                    navigate('/#partners');
+                  }
+                }}
+                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-colors border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap"
+              >
+                <span>PARTNERS</span>
+                <span className="hidden xl:inline">&nbsp;& ALLIANCES</span>
+              </a>
+
+              <a 
+                href="#media-center"
+                onClick={(e) => {
+                  if (location.pathname !== '/') {
+                    e.preventDefault();
+                    navigate('/#media-center');
+                  }
+                }}
+                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-colors border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap"
+              >
+                MEDIA CENTER
+              </a>
+
+              <NavLink 
+                to="/contact" 
+                className={({ isActive }) => `h-full flex items-center font-bold uppercase tracking-wider transition-colors border-b-2 whitespace-nowrap ${
+                  isActive 
+                    ? 'text-primary-700 border-primary-600 font-extrabold' 
+                    : 'text-slate-700 hover:text-primary-700 border-transparent'
+                }`}
+              >
+                CONTACT US
+              </NavLink>
+            </nav>
+
+            {/* Desktop Action Right (Search icon + Clean Blue CTA Button) */}
+            <div className="hidden lg:flex items-center gap-3 xl:gap-4 shrink-0">
+              <button
+                onClick={onOpenSearch}
+                aria-label="Search"
+                className="p-2 text-slate-500 hover:text-primary-700 transition-colors cursor-pointer"
+                title="Search website (Ctrl+K)"
+              >
+                <Search className="w-4.5 h-4.5" />
+              </button>
+
+              <button
+                onClick={() => onOpenQuote()}
+                className="inline-flex items-center justify-center px-4 xl:px-5 py-2.5 rounded-lg font-bold text-xs uppercase tracking-wider text-white bg-primary-700 hover:bg-primary-800 active:bg-primary-900 transition-all shadow-sm whitespace-nowrap"
+              >
+                <span className="hidden xl:inline">Request a Quote</span>
+                <span className="xl:hidden">Request Quote</span>
+              </button>
             </div>
 
             {/* Mobile Actions */}
