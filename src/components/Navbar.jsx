@@ -6,7 +6,7 @@ import {
   Search, 
   Menu, 
   X, 
-  ChevronDown,
+  ChevronDown, 
   ChevronRight, 
   Truck, 
   Activity, 
@@ -15,8 +15,6 @@ import {
   ShieldCheck, 
   Clock,
   Home,
-  Building2,
-  Globe,
   ArrowRight
 } from 'lucide-react';
 import { companyDetails } from '../data/servicesData';
@@ -99,7 +97,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full transition-all duration-200 bg-white border-b border-slate-200/90 shadow-xs">
+      <header className={`sticky top-0 z-50 w-full bg-white transition-shadow duration-200 ${scrolled ? 'shadow-md border-b border-slate-200' : 'border-b border-slate-200/90'}`}>
         
         {/* Top Corporate Strip (Abdulla Fouad style thin metadata bar) */}
         <div className="bg-slate-900 text-slate-300 text-[11px] border-b border-slate-800 hidden sm:block">
@@ -139,36 +137,35 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
           </div>
         </div>
 
-        {/* Main Enterprise Navigation Bar (Abdulla Fouad Group clean, crisp balanced layout) */}
+        {/* Main Enterprise Navigation Bar (Clean corporate layout with balanced spacing) */}
         <div className="bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
-            {/* Enterprise Logo: Left-aligned with compact proportions so it never crowds links */}
-            <Link to="/" className="flex items-center gap-3 group shrink-0">
-              <div className="flex items-center justify-center text-primary-700">
-                <svg className="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 4L4 12V28L20 36L36 28V12L20 4Z" stroke="#0369A1" strokeWidth="2.5" strokeLinejoin="round"/>
-                  <path d="M20 14V26" stroke="#0284C7" strokeWidth="3" strokeLinecap="round"/>
-                  <path d="M14 20H26" stroke="#0284C7" strokeWidth="3" strokeLinecap="round"/>
-                  <circle cx="20" cy="8" r="2" fill="#0D9488" />
-                </svg>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-display font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 leading-none">
-                  MEDICAL <span className="text-primary-700">SOLUTIONS</span>
-                </span>
-                <span className="text-[9px] tracking-wider uppercase font-semibold text-slate-400 mt-1">
-                  Healthcare & Enterprise
-                </span>
-              </div>
-            </Link>
+            {/* Enterprise Logo: Left-aligned with guaranteed right breathing room */}
+            <div className="flex items-center shrink-0 mr-6 xl:mr-10">
+              <Link to="/" className="flex items-center gap-3 group">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary-700 flex items-center justify-center text-white shadow-sm group-hover:bg-primary-800 transition-colors shrink-0">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2v20M2 12h20"/>
+                  </svg>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-display font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 leading-tight">
+                    MEDICAL <span className="text-primary-700">SOLUTIONS</span>
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] tracking-wider uppercase font-semibold text-slate-400">
+                    Healthcare & Enterprise Infrastructure
+                  </span>
+                </div>
+              </Link>
+            </div>
 
-            {/* Desktop Navigation Links: Balanced center positioning with healthy breathing room */}
-            <nav className="hidden lg:flex items-center gap-4 xl:gap-7 2xl:gap-8 h-full text-xs xl:text-[13px]">
+            {/* Desktop Navigation Links: Flush full-height tabs with bottom border flush at header edge */}
+            <nav className="hidden lg:flex items-center gap-5 xl:gap-7 h-20 text-xs xl:text-[13px]">
               <NavLink 
                 to="/" 
                 end
-                className={({ isActive }) => `h-full flex items-center font-bold uppercase tracking-wider transition-colors border-b-2 whitespace-nowrap ${
+                className={({ isActive }) => `h-full flex items-center font-bold uppercase tracking-wider transition-all border-b-2 whitespace-nowrap px-1 ${
                   isActive 
                     ? 'text-primary-700 border-primary-600 font-extrabold' 
                     : 'text-slate-700 hover:text-primary-700 border-transparent'
@@ -185,7 +182,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                     navigate('/#who-we-are');
                   }
                 }}
-                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-colors border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap"
+                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-all border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap px-1"
               >
                 WHO WE ARE
               </a>
@@ -196,7 +193,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                   type="button"
                   onClick={() => setSectorsOpen(!sectorsOpen)}
                   onMouseEnter={() => setSectorsOpen(true)}
-                  className={`h-full flex items-center gap-1 font-bold uppercase tracking-wider transition-colors border-b-2 whitespace-nowrap ${
+                  className={`h-full flex items-center gap-1 font-bold uppercase tracking-wider transition-all border-b-2 whitespace-nowrap px-1 cursor-pointer ${
                     sectorsOpen || ['/health', '/logistics', '/manpower', '/rental'].includes(location.pathname)
                       ? 'text-primary-700 border-primary-600 font-extrabold'
                       : 'text-slate-700 hover:text-primary-700 border-transparent'
@@ -210,7 +207,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                 {sectorsOpen && (
                   <div 
                     onMouseLeave={() => setSectorsOpen(false)}
-                    className="absolute top-full left-1/2 -translate-x-1/2 w-[460px] bg-white rounded-b-xl shadow-2xl border border-slate-200 p-3 grid grid-cols-1 gap-1.5 z-50 animate-fadeIn"
+                    className="absolute top-full left-0 w-[440px] bg-white rounded-b-xl shadow-2xl border border-slate-200 p-3 grid grid-cols-1 gap-1.5 z-50 animate-fadeIn -mt-px"
                   >
                     <div className="px-3 py-2 border-b border-slate-100 flex items-center justify-between">
                       <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
@@ -251,7 +248,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                     })}
 
                     <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-between text-xs text-slate-600">
-                      <span>View full multi-sector capabilities</span>
+                      <span>Explore all 4 core business verticals</span>
                       <Link 
                         to="/#our-sectors"
                         onClick={() => setSectorsOpen(false)}
@@ -272,10 +269,10 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                     navigate('/#partners');
                   }
                 }}
-                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-colors border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap"
+                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-all border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap px-1"
               >
-                <span>PARTNERS</span>
-                <span className="hidden xl:inline">&nbsp;& ALLIANCES</span>
+                <span className="xl:hidden">PARTNERS</span>
+                <span className="hidden xl:inline">PARTNERS & ALLIANCES</span>
               </a>
 
               <a 
@@ -286,14 +283,14 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                     navigate('/#media-center');
                   }
                 }}
-                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-colors border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap"
+                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-all border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap px-1"
               >
                 MEDIA CENTER
               </a>
 
               <NavLink 
                 to="/contact" 
-                className={({ isActive }) => `h-full flex items-center font-bold uppercase tracking-wider transition-colors border-b-2 whitespace-nowrap ${
+                className={({ isActive }) => `h-full flex items-center font-bold uppercase tracking-wider transition-all border-b-2 whitespace-nowrap px-1 ${
                   isActive 
                     ? 'text-primary-700 border-primary-600 font-extrabold' 
                     : 'text-slate-700 hover:text-primary-700 border-transparent'
@@ -304,7 +301,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
             </nav>
 
             {/* Desktop Action Right (Search icon + Clean Blue CTA Button) */}
-            <div className="hidden lg:flex items-center gap-3 xl:gap-4 shrink-0">
+            <div className="hidden lg:flex items-center gap-3 xl:gap-4 shrink-0 pl-4 border-l border-slate-200">
               <button
                 onClick={onOpenSearch}
                 aria-label="Search"
@@ -316,10 +313,10 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
 
               <button
                 onClick={() => onOpenQuote()}
-                className="inline-flex items-center justify-center px-4 xl:px-5 py-2.5 rounded-lg font-bold text-xs uppercase tracking-wider text-white bg-primary-700 hover:bg-primary-800 active:bg-primary-900 transition-all shadow-sm whitespace-nowrap"
+                className="inline-flex items-center justify-center px-4 xl:px-5 py-2.5 rounded-lg font-bold text-xs uppercase tracking-wider text-white bg-primary-700 hover:bg-primary-800 active:bg-primary-900 transition-all shadow-sm whitespace-nowrap cursor-pointer"
               >
-                <span className="hidden xl:inline">Request a Quote</span>
                 <span className="xl:hidden">Request Quote</span>
+                <span className="hidden xl:inline">Request a Quote</span>
               </button>
             </div>
 
