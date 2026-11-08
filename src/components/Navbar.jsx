@@ -137,12 +137,12 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
           </div>
         </div>
 
-        {/* Main Enterprise Navigation Bar (Clean corporate layout with balanced spacing) */}
+        {/* Main Enterprise Navigation Bar (Balanced 3-zone layout with perfectly centered nav) */}
         <div className="bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
-            {/* Enterprise Logo: Left-aligned with guaranteed right breathing room */}
-            <div className="flex items-center shrink-0 mr-6 xl:mr-10">
+            {/* Zone 1: Left Brand Logo (width-matched with right actions for perfect center balance) */}
+            <div className="flex items-center shrink-0 xl:min-w-[240px]">
               <Link to="/" className="flex items-center gap-3 group">
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary-700 flex items-center justify-center text-white shadow-sm group-hover:bg-primary-800 transition-colors shrink-0">
                   <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -160,12 +160,12 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
               </Link>
             </div>
 
-            {/* Desktop Navigation Links: Flush full-height tabs with bottom border flush at header edge */}
-            <nav className="hidden lg:flex items-center gap-5 xl:gap-7 h-20 text-xs xl:text-[13px]">
+            {/* Zone 2: Navigation Links — Dead Centered in Navbar */}
+            <nav className="hidden lg:flex items-center justify-center flex-1 h-20 gap-4 xl:gap-7 2xl:gap-8 text-xs xl:text-[13px] mx-2 xl:mx-6">
               <NavLink 
                 to="/" 
                 end
-                className={({ isActive }) => `h-full flex items-center font-bold uppercase tracking-wider transition-all border-b-2 whitespace-nowrap px-1 ${
+                className={({ isActive }) => `h-full flex items-center font-bold uppercase tracking-wider transition-all border-b-2 whitespace-nowrap px-1.5 ${
                   isActive 
                     ? 'text-primary-700 border-primary-600 font-extrabold' 
                     : 'text-slate-700 hover:text-primary-700 border-transparent'
@@ -182,7 +182,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                     navigate('/#who-we-are');
                   }
                 }}
-                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-all border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap px-1"
+                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-all border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap px-1.5"
               >
                 WHO WE ARE
               </a>
@@ -193,7 +193,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                   type="button"
                   onClick={() => setSectorsOpen(!sectorsOpen)}
                   onMouseEnter={() => setSectorsOpen(true)}
-                  className={`h-full flex items-center gap-1 font-bold uppercase tracking-wider transition-all border-b-2 whitespace-nowrap px-1 cursor-pointer ${
+                  className={`h-full flex items-center gap-1 font-bold uppercase tracking-wider transition-all border-b-2 whitespace-nowrap px-1.5 cursor-pointer ${
                     sectorsOpen || ['/health', '/logistics', '/manpower', '/rental'].includes(location.pathname)
                       ? 'text-primary-700 border-primary-600 font-extrabold'
                       : 'text-slate-700 hover:text-primary-700 border-transparent'
@@ -269,7 +269,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                     navigate('/#partners');
                   }
                 }}
-                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-all border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap px-1"
+                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-all border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap px-1.5"
               >
                 <span className="xl:hidden">PARTNERS</span>
                 <span className="hidden xl:inline">PARTNERS & ALLIANCES</span>
@@ -283,14 +283,14 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                     navigate('/#media-center');
                   }
                 }}
-                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-all border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap px-1"
+                className="h-full flex items-center font-bold uppercase tracking-wider text-slate-700 hover:text-primary-700 transition-all border-b-2 border-transparent hover:border-primary-600 cursor-pointer whitespace-nowrap px-1.5"
               >
                 MEDIA CENTER
               </a>
 
               <NavLink 
                 to="/contact" 
-                className={({ isActive }) => `h-full flex items-center font-bold uppercase tracking-wider transition-all border-b-2 whitespace-nowrap px-1 ${
+                className={({ isActive }) => `h-full flex items-center font-bold uppercase tracking-wider transition-all border-b-2 whitespace-nowrap px-1.5 ${
                   isActive 
                     ? 'text-primary-700 border-primary-600 font-extrabold' 
                     : 'text-slate-700 hover:text-primary-700 border-transparent'
@@ -300,24 +300,26 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
               </NavLink>
             </nav>
 
-            {/* Desktop Action Right (Search icon + Clean Blue CTA Button) */}
-            <div className="hidden lg:flex items-center gap-3 xl:gap-4 shrink-0 pl-4 border-l border-slate-200">
-              <button
-                onClick={onOpenSearch}
-                aria-label="Search"
-                className="p-2 text-slate-500 hover:text-primary-700 transition-colors cursor-pointer"
-                title="Search website (Ctrl+K)"
-              >
-                <Search className="w-4.5 h-4.5" />
-              </button>
+            {/* Zone 3: Right Actions (Search + Quote button, width-balanced with Left Zone) */}
+            <div className="hidden lg:flex items-center justify-end shrink-0 xl:min-w-[240px]">
+              <div className="flex items-center gap-3 xl:gap-4 pl-4 border-l border-slate-200">
+                <button
+                  onClick={onOpenSearch}
+                  aria-label="Search"
+                  className="p-2 text-slate-500 hover:text-primary-700 transition-colors cursor-pointer"
+                  title="Search website (Ctrl+K)"
+                >
+                  <Search className="w-4.5 h-4.5" />
+                </button>
 
-              <button
-                onClick={() => onOpenQuote()}
-                className="inline-flex items-center justify-center px-4 xl:px-5 py-2.5 rounded-lg font-bold text-xs uppercase tracking-wider text-white bg-primary-700 hover:bg-primary-800 active:bg-primary-900 transition-all shadow-sm whitespace-nowrap cursor-pointer"
-              >
-                <span className="xl:hidden">Request Quote</span>
-                <span className="hidden xl:inline">Request a Quote</span>
-              </button>
+                <button
+                  onClick={() => onOpenQuote()}
+                  className="inline-flex items-center justify-center px-4 xl:px-5 py-2.5 rounded-lg font-bold text-xs uppercase tracking-wider text-white bg-primary-700 hover:bg-primary-800 active:bg-primary-900 transition-all shadow-sm whitespace-nowrap cursor-pointer"
+                >
+                  <span className="xl:hidden">Request Quote</span>
+                  <span className="hidden xl:inline">Request a Quote</span>
+                </button>
+              </div>
             </div>
 
             {/* Mobile Actions */}
