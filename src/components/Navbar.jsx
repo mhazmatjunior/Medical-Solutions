@@ -52,15 +52,36 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Lock body scroll on mobile menu
+  // Bulletproof body scroll lock for mobile menu: pauses all background scrolling
   useEffect(() => {
     if (mobileMenuOpen) {
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      }
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      }
     };
   }, [mobileMenuOpen]);
 
@@ -339,7 +360,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
 
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="p-2 text-slate-700 hover:text-slate-900 rounded-lg focus:outline-none"
+                className="p-2 text-slate-700 hover:text-slate-900 rounded-lg focus:outline-none cursor-pointer"
                 aria-label="Open navigation menu"
               >
                 <Menu className="w-6 h-6 text-slate-800" />
@@ -349,154 +370,153 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
           </div>
         </div>
 
-        {/* Mobile Slide-Over Off-Canvas Navigation (Touch-Friendly Native Experience) */}
+        {/* Mobile Slide-Over Menu (Height equals 100% dynamic viewport, pauses background scroll) */}
         {mobileMenuOpen && (
-          <div className="fixed inset-0 z-50 lg:hidden flex justify-end">
+          <div className="fixed inset-0 z-50 lg:hidden flex justify-end h-[100dvh] max-h-[100dvh] overflow-hidden">
             
-            {/* Backdrop */}
+            {/* Backdrop: Touching dim backdrop closes menu and prevents touch-move scroll */}
             <div 
-              className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm transition-opacity animate-fadeIn"
+              className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm transition-opacity"
               onClick={() => setMobileMenuOpen(false)}
+              onTouchMove={(e) => e.preventDefault()}
             />
 
-            {/* Slide-over Drawer Panel */}
-            <div className="relative w-full max-w-sm bg-white h-full shadow-2xl flex flex-col justify-between z-10 overflow-y-auto">
+            {/* Slide-over Drawer Panel: Height equals exact viewport height (100dvh) */}
+            <div className="relative w-full sm:max-w-sm bg-white h-[100dvh] max-h-[100dvh] shadow-2xl flex flex-col justify-between z-10 overflow-hidden">
               
-              {/* Drawer Top Header */}
-              <div>
-                <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-primary-700 flex items-center justify-center text-white shrink-0">
-                      <svg className="w-4.5 h-4.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 2v20M2 12h20"/>
-                      </svg>
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="font-display font-extrabold text-sm text-slate-900 leading-tight">
-                        MEDICAL <span className="text-primary-700">SOLUTIONS</span>
-                      </span>
-                      <span className="text-[8px] uppercase tracking-wider font-semibold text-slate-400">
-                        Healthcare & Enterprise
-                      </span>
-                    </div>
+              {/* Drawer Top Header (Pinned at top) */}
+              <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/90 shrink-0">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-primary-700 flex items-center justify-center text-white shrink-0">
+                    <svg className="w-4.5 h-4.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 2v20M2 12h20"/>
+                    </svg>
                   </div>
-
-                  <button
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="p-2 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
-                    aria-label="Close menu"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
+                  <div className="flex flex-col">
+                    <span className="font-display font-extrabold text-sm text-slate-900 leading-tight">
+                      MEDICAL <span className="text-primary-700">SOLUTIONS</span>
+                    </span>
+                    <span className="text-[8px] uppercase tracking-wider font-semibold text-slate-400">
+                      Healthcare & Enterprise
+                    </span>
+                  </div>
                 </div>
 
-                {/* Navigation Links */}
-                <div className="p-4 space-y-1">
-                  
-                  <div className="px-2 py-1 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
-                    Quick Navigation
-                  </div>
-
-                  <NavLink
-                    to="/"
-                    end
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={({ isActive }) => `flex items-center justify-between p-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors ${
-                      isActive ? 'bg-primary-50 text-primary-700 font-extrabold' : 'text-slate-800 hover:bg-slate-50'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <Home className="w-4 h-4 text-slate-500" />
-                      <span>HOME</span>
-                    </div>
-                    <ChevronRight className="w-4 h-4 text-slate-300" />
-                  </NavLink>
-
-                  <div className="pt-3 pb-1 px-2 text-[10px] font-extrabold text-primary-700 uppercase tracking-widest flex items-center justify-between">
-                    <span>Our 4 Core Sectors</span>
-                    <span className="text-[9px] font-normal lowercase bg-primary-50 text-primary-700 px-1.5 py-0.5 rounded">divisions</span>
-                  </div>
-
-                  {sectors.map((sec) => {
-                    const Icon = sec.icon;
-                    return (
-                      <NavLink
-                        key={sec.path}
-                        to={sec.path}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={({ isActive }) => `flex items-center justify-between p-2.5 rounded-xl transition-colors ${
-                          isActive ? 'bg-primary-50 text-primary-700 font-bold border border-primary-200' : 'text-slate-700 hover:bg-slate-50'
-                        }`}
-                      >
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-8 h-8 rounded-lg bg-primary-50 text-primary-700 flex items-center justify-center shrink-0">
-                            <Icon className="w-4 h-4" />
-                          </div>
-                          <div className="min-w-0">
-                            <div className="text-xs font-bold text-slate-900 truncate">{sec.title}</div>
-                            <div className="text-[10px] text-slate-400 truncate">{sec.desc}</div>
-                          </div>
-                        </div>
-                        <ChevronRight className="w-4 h-4 text-slate-300 shrink-0 ml-2" />
-                      </NavLink>
-                    );
-                  })}
-
-                  <div className="pt-3 border-t border-slate-100"></div>
-
-                  <div className="px-2 py-1 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
-                    Corporate Links
-                  </div>
-
-                  <a
-                    href="#who-we-are"
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      if (location.pathname !== '/') navigate('/#who-we-are');
-                    }}
-                    className="flex items-center justify-between p-2.5 rounded-xl text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
-                  >
-                    <span>WHO WE ARE</span>
-                    <ChevronRight className="w-4 h-4 text-slate-300" />
-                  </a>
-
-                  <a
-                    href="#partners"
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      if (location.pathname !== '/') navigate('/#partners');
-                    }}
-                    className="flex items-center justify-between p-2.5 rounded-xl text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
-                  >
-                    <span>PARTNERS & ALLIANCES</span>
-                    <ChevronRight className="w-4 h-4 text-slate-300" />
-                  </a>
-
-                  <a
-                    href="#media-center"
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      if (location.pathname !== '/') navigate('/#media-center');
-                    }}
-                    className="flex items-center justify-between p-2.5 rounded-xl text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
-                  >
-                    <span>MEDIA CENTER</span>
-                    <ChevronRight className="w-4 h-4 text-slate-300" />
-                  </a>
-
-                  <NavLink
-                    to="/contact"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-between p-2.5 rounded-xl text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
-                  >
-                    <span>CONTACT US</span>
-                    <ChevronRight className="w-4 h-4 text-slate-300" />
-                  </NavLink>
-                </div>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-2 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                  aria-label="Close menu"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
 
-              {/* Drawer Bottom Actions */}
-              <div className="p-4 border-t border-slate-100 bg-slate-50/60 space-y-2.5">
+              {/* Drawer Middle: Scrollable navigation links (overscroll-contain pauses background chaining) */}
+              <div className="flex-1 overflow-y-auto overscroll-contain p-4 space-y-1">
+                
+                <div className="px-2 py-1 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
+                  Quick Navigation
+                </div>
+
+                <NavLink
+                  to="/"
+                  end
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={({ isActive }) => `flex items-center justify-between p-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors ${
+                    isActive ? 'bg-primary-50 text-primary-700 font-extrabold' : 'text-slate-800 hover:bg-slate-50'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Home className="w-4 h-4 text-slate-500" />
+                    <span>HOME</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-slate-300" />
+                </NavLink>
+
+                <div className="pt-3 pb-1 px-2 text-[10px] font-extrabold text-primary-700 uppercase tracking-widest flex items-center justify-between">
+                  <span>Our 4 Core Sectors</span>
+                  <span className="text-[9px] font-normal lowercase bg-primary-50 text-primary-700 px-1.5 py-0.5 rounded">divisions</span>
+                </div>
+
+                {sectors.map((sec) => {
+                  const Icon = sec.icon;
+                  return (
+                    <NavLink
+                      key={sec.path}
+                      to={sec.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={({ isActive }) => `flex items-center justify-between p-2.5 rounded-xl transition-colors ${
+                        isActive ? 'bg-primary-50 text-primary-700 font-bold border border-primary-200' : 'text-slate-700 hover:bg-slate-50'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-8 h-8 rounded-lg bg-primary-50 text-primary-700 flex items-center justify-center shrink-0">
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="text-xs font-bold text-slate-900 truncate">{sec.title}</div>
+                          <div className="text-[10px] text-slate-400 truncate">{sec.desc}</div>
+                        </div>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-slate-300 shrink-0 ml-2" />
+                    </NavLink>
+                  );
+                })}
+
+                <div className="pt-3 border-t border-slate-100"></div>
+
+                <div className="px-2 py-1 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
+                  Corporate Links
+                </div>
+
+                <a
+                  href="#who-we-are"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    if (location.pathname !== '/') navigate('/#who-we-are');
+                  }}
+                  className="flex items-center justify-between p-2.5 rounded-xl text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
+                >
+                  <span>WHO WE ARE</span>
+                  <ChevronRight className="w-4 h-4 text-slate-300" />
+                </a>
+
+                <a
+                  href="#partners"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    if (location.pathname !== '/') navigate('/#partners');
+                  }}
+                  className="flex items-center justify-between p-2.5 rounded-xl text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
+                >
+                  <span>PARTNERS & ALLIANCES</span>
+                  <ChevronRight className="w-4 h-4 text-slate-300" />
+                </a>
+
+                <a
+                  href="#media-center"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    if (location.pathname !== '/') navigate('/#media-center');
+                  }}
+                  className="flex items-center justify-between p-2.5 rounded-xl text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
+                >
+                  <span>MEDIA CENTER</span>
+                  <ChevronRight className="w-4 h-4 text-slate-300" />
+                </a>
+
+                <NavLink
+                  to="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between p-2.5 rounded-xl text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
+                >
+                  <span>CONTACT US</span>
+                  <ChevronRight className="w-4 h-4 text-slate-300" />
+                </NavLink>
+              </div>
+
+              {/* Drawer Bottom Actions (Pinned at bottom of viewport) */}
+              <div className="p-4 border-t border-slate-100 bg-slate-50/80 shrink-0 space-y-2 pb-6 sm:pb-4">
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
