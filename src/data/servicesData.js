@@ -1,12 +1,12 @@
-// Comprehensive data models for Medical Solutions services
+// Comprehensive data models for Afra National Co. services
 
 export const companyDetails = {
-  name: "Medical Solutions",
+  name: "Afra National Co.",
   tagline: "Integrated Healthcare, Supply Chain & Workforce Infrastructure",
   phone: "+1 (800) 482-9012",
   emergencyHotline: "+1 (800) 911-MEDS",
-  email: "inquiries@medicalsolutions-global.com",
-  procurementEmail: "supply@medicalsolutions-global.com",
+  email: "inquiries@afranational.com",
+  procurementEmail: "supply@afranational.com",
   headquarters: "450 Medical Center Boulevard, Suite 1200, Innovation District",
   operatingHours: "24/7/365 Rapid Response Operations",
   certifications: [
@@ -342,7 +342,7 @@ export const clientStats = [
 
 export const testimonials = [
   {
-    quote: "Medical Solutions provided our regional hospital network with uninterrupted cold-chain pharmaceutical freight and 45 ICU nurses within 72 hours of our expansion. Their speed and compliance are unmatched.",
+    quote: "Afra National Co. provided our regional hospital network with uninterrupted cold-chain pharmaceutical freight and 45 ICU nurses within 72 hours of our expansion. Their speed and compliance are unmatched.",
     author: "Dr. Marcus Vance",
     role: "Chief Medical Officer",
     org: "St. Jude Metropolitan Health System"

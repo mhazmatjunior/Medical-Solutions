@@ -135,7 +135,7 @@ export default function Contact() {
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900">Message Dispatched Successfully</h3>
                 <p className="text-slate-600 max-w-md mx-auto text-sm leading-relaxed">
-                  Thank you for contacting Medical Solutions. Your inquiry regarding <span className="font-semibold text-primary-600">{department}</span> has been logged with highest priority. A dedicated account director will review your specifications and contact you promptly.
+                  Thank you for contacting Afra National Co. Your inquiry regarding <span className="font-semibold text-primary-600">{department}</span> has been logged with highest priority. A dedicated account director will review your specifications and contact you promptly.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}

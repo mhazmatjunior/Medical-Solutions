@@ -310,7 +310,7 @@ export default function Health({ onOpenQuote }) {
               Direct Wholesale Formulary Supply for Pharmacy Networks
             </h3>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Medical Solutions manages direct manufacturer pricing contracts for hospital networks, corporate wellness initiatives, and large pharmacy groups. We ensure guaranteed expiry buffers, batch trace authenticity, and integrated warehouse replenishment.
+              Afra National Co. manages direct manufacturer pricing contracts for hospital networks, corporate wellness initiatives, and large pharmacy groups. We ensure guaranteed expiry buffers, batch trace authenticity, and integrated warehouse replenishment.
             </p>
             <div className="pt-4 flex flex-wrap gap-4">
               <button

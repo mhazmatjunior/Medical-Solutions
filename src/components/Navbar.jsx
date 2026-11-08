@@ -172,7 +172,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-display font-extrabold text-sm sm:text-lg tracking-tight text-slate-900 leading-tight">
-                    MEDICAL <span className="text-primary-700">SOLUTIONS</span>
+                    AFRA <span className="text-primary-700">NATIONAL CO.</span>
                   </span>
                   <span className="text-[8px] sm:text-[9px] tracking-wider uppercase font-semibold text-slate-400 leading-none mt-0.5">
                     Healthcare & Enterprise
@@ -381,8 +381,8 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
               onTouchMove={(e) => e.preventDefault()}
             />
 
-            {/* Slide-over Drawer Panel: Height equals exact viewport height (100dvh) */}
-            <div className="relative w-full sm:max-w-sm bg-white h-[100dvh] max-h-[100dvh] shadow-2xl flex flex-col justify-between z-10 overflow-hidden">
+            {/* Slide-over Drawer Panel: Height equals exact viewport height (100dvh), but NOT full width so backdrop is visible */}
+            <div className="relative w-[82%] sm:w-[360px] max-w-[360px] bg-white h-[100dvh] max-h-[100dvh] shadow-2xl flex flex-col justify-between z-10 overflow-hidden">
               
               {/* Drawer Top Header (Pinned at top) */}
               <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/90 shrink-0">
@@ -394,7 +394,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                   </div>
                   <div className="flex flex-col">
                     <span className="font-display font-extrabold text-sm text-slate-900 leading-tight">
-                      MEDICAL <span className="text-primary-700">SOLUTIONS</span>
+                      AFRA <span className="text-primary-700">NATIONAL CO.</span>
                     </span>
                     <span className="text-[8px] uppercase tracking-wider font-semibold text-slate-400">
                       Healthcare & Enterprise

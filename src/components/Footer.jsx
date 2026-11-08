@@ -51,7 +51,7 @@ export default function Footer({ onOpenQuote }) {
                 </svg>
               </div>
               <span className="font-display font-extrabold text-2xl tracking-tight text-white">
-                Medical <span className="text-primary-400">Solutions</span>
+                Afra National <span className="text-primary-400">Co.</span>
               </span>
             </Link>
 

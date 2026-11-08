@@ -1,4 +1,4 @@
-# Medical Solutions
+# Afra National Co.
 
 An enterprise healthcare, logistics, medical staffing, and fleet solutions portal engineered with React, Tailwind CSS, Lucide Icons, and Vite.
 

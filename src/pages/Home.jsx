@@ -262,7 +262,7 @@ export default function Home({ onOpenQuote }) {
               A Premier Conglomerate Driving Regional Healthcare & Supply Chain Excellence
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm sm:text-base leading-relaxed">
-              Medical Solutions Group stands at the forefront of integrated healthcare provision, pharmaceutical cold-chain transport, clinical manpower augmentation, and emergency fleet leasing. Inspired by industry pioneers, our enterprise serves health ministries, tertiary hospital networks, research laboratories, and corporate partners across the region.
+              Afra National Co. stands at the forefront of integrated healthcare provision, pharmaceutical cold-chain transport, clinical manpower augmentation, and emergency fleet leasing. Inspired by industry pioneers, our enterprise serves health ministries, tertiary hospital networks, research laboratories, and corporate partners across the region.
             </p>
             <p className="text-slate-600 text-xs sm:text-sm sm:text-base leading-relaxed hidden sm:block">
               Our multidisciplinary divisions operate under strict global governance—from ISO 13485:2016 quality management for medical hardware to Good Distribution Practice (GDP) cold corridors—ensuring unwavering compliance and life-saving reliability.
@@ -294,7 +294,7 @@ export default function Home({ onOpenQuote }) {
             <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-slate-200">
               <img
                 src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80"
-                alt="Medical Solutions Laboratory & Diagnostic Architecture"
+                alt="Afra National Co. Laboratory & Diagnostic Architecture"
                 className="w-full h-56 sm:h-80 lg:h-[420px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent"></div>
@@ -503,7 +503,7 @@ export default function Home({ onOpenQuote }) {
               STRATEGIC PARTNERSHIPS & TENDERS
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
-              Ready to Partner With Medical Solutions Group?
+              Ready to Partner With Afra National Co.?
             </h2>
             <p className="text-slate-300 text-xs sm:text-sm sm:text-base leading-relaxed">
               Connect with our corporate procurement, supply chain, and clinical staffing directors. We provide comprehensive SLAs, compliance data, and priority onboarding.
