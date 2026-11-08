@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ArrowRight, 
@@ -11,260 +11,364 @@ import {
   Clock, 
   Globe2, 
   FileCheck, 
-  Thermometer, 
-  HeartHandshake, 
-  Building2, 
-  Search,
-  Sparkles,
-  ChevronRight
+  ChevronRight,
+  ChevronLeft,
+  Building2,
+  Award,
+  Layers,
+  HeartHandshake,
+  TrendingUp,
+  Sparkles
 } from 'lucide-react';
 import SectionHeading from '../components/SectionHeading';
 import { 
-  logisticsServices, 
-  healthProducts, 
-  manpowerRoles, 
-  rentalFleet, 
   clientStats, 
   testimonials 
 } from '../data/servicesData';
 
 export default function Home({ onOpenQuote }) {
-  const [activeTab, setActiveTab] = useState('all');
-  const [selectedSolution, setSelectedSolution] = useState('logistics');
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const pillars = [
+  // Abdulla Fouad style hero slider slides with photography & messaging
+  const heroSlides = [
     {
-      id: 'logistics',
-      title: '1. Logistics & Cold Chain',
-      shortTitle: 'Logistics',
-      tagline: 'Ocean, Air, Road Freight & GDP Terminal Storage',
-      desc: 'Certified pharmaceutical and medical logistics with continuous temperature telemetry (-80°C to +25°C), expedited customs clearance, and direct pharmacy delivery networks.',
+      title: "Pioneering Integrated Healthcare & Enterprise Solutions",
+      subtitle: "Delivering world-class pharmaceutical cold-chain logistics, diagnostic medical equipment, certified hospital workforce, and specialized emergency fleet operations.",
+      tag: "OVER 25 YEARS OF EXCELLENCE",
+      cta: "Explore Our Sectors",
+      targetId: "our-sectors",
+      bgImage: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1920&q=80"
+    },
+    {
+      title: "Towards Better Patient Care & Clinical Excellence",
+      subtitle: "Direct Tier-1 supply of hospital ICU machinery, precision medical devices, sterile surgical consumables, and corporate pharmacy formulary contracts.",
+      tag: "ISO 13485:2016 & CE / FDA CERTIFIED",
+      cta: "Discover Healthcare Sector",
+      targetId: "healthcare-division",
+      bgImage: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1920&q=80"
+    },
+    {
+      title: "Global Cold-Chain Freight & Terminal Storage",
+      subtitle: "Oceanic reefer containers, express air charters, and multi-zone GDP validated vaults maintaining unbroken thermal integrity from -80°C to +25°C.",
+      tag: "GDP VALIDATED COLD CHAIN",
+      cta: "Explore Supply Chain & Logistics",
+      targetId: "supply-chain-division",
+      bgImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80"
+    },
+    {
+      title: "Specialist Medical Staffing & Emergency Fleet Rentals",
+      subtitle: "Rapid placement of primary-source vetted ICU physicians, nurses, and technicians, alongside turnkey Type III ALS ambulances and mobile dental clinics.",
+      tag: "24/7 RAPID DISPATCH OPERATIONS",
+      cta: "Explore Workforce & Fleet",
+      targetId: "manpower-division",
+      bgImage: "https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=1920&q=80"
+    }
+  ];
+
+  // Auto advance slides every 6 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [heroSlides.length]);
+
+  const sectors = [
+    {
+      id: 'healthcare-division',
+      title: 'Healthcare Solutions',
+      category: 'Medical Supplies & Devices',
+      desc: 'Supplying hospital-grade ICU monitors, mobile C-arm fluoroscopy, syringe infusion devices, and wholesale corporate pharmacy formularies.',
+      icon: Activity,
+      link: '/health',
+      image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80',
+      highlights: [
+        'ICU & Diagnostic Medical Equipments',
+        'Precision Infusion & Defibrillator Devices',
+        'Sterile Consumables & Surgical Disposables',
+        'Direct Corporate Pharmacy Wholesale Contracts'
+      ]
+    },
+    {
+      id: 'supply-chain-division',
+      title: 'Supply Chain & Logistics',
+      category: 'Global Freight & Cold Storage',
+      desc: 'Validated multi-zone cold chain (-80°C to +25°C), ocean reefer containers, air freight charters, expedited customs, and hospital replenishment.',
       icon: Truck,
-      color: 'from-blue-600 to-cyan-600',
-      textColor: 'text-blue-600',
-      bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200',
       link: '/logistics',
+      image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=80',
       highlights: [
         'Ocean / Sea Freight (Reefer Containers)',
-        'Time-Critical Air Freight & Express Charter',
-        'Land / Road Climate-Controlled Fleets',
-        'Customs Clearance & Regulatory Brokerage',
-        'Terminal GDP Multi-Zone Storage',
-        'Direct Medicine & Pharmacy Supply'
-      ],
-      image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=80'
+        'Express Air Cargo & Emergency Charters',
+        'Nationwide Climate-Controlled Road Fleets',
+        'GDP Multi-Zone Terminal Storage Vaults'
+      ]
     },
     {
-      id: 'health',
-      title: '2. Health & Supplies',
-      shortTitle: 'Health',
-      tagline: 'Equipments, Precision Devices & Sterile Consumables',
-      desc: 'End-to-end procurement and supply of hospital-grade ICU machinery, diagnostic imaging systems, surgical devices, sterile disposables, and corporate pharmacy packages.',
-      icon: Activity,
-      color: 'from-teal-600 to-emerald-600',
-      textColor: 'text-teal-600',
-      bgColor: 'bg-teal-50',
-      borderColor: 'border-teal-200',
-      link: '/health',
-      highlights: [
-        'Pharmacies & Corporate Bulk Contracts',
-        'ICU & Diagnostic Medical Equipments',
-        'Specialized Medical Devices & Infusion Systems',
-        'Sterile Consumables & Surgical Disposables',
-        'Tier-1 Direct Manufacturer Pricing',
-        'Full ISO 13485 & CE Compliance'
-      ],
-      image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1000&q=80'
-    },
-    {
-      id: 'manpower',
-      title: '3. Manpower Solutions',
-      shortTitle: 'Manpower',
-      tagline: 'Specialist Doctors, ICU Nurses, Paramedics & Technicians',
-      desc: 'Rapid placement of credentialed clinical personnel, biomedical technicians, and reliable healthcare support staff for permanent placement or emergency hospital surge demands.',
+      id: 'manpower-division',
+      title: 'Manpower Solutions',
+      category: 'Clinical & Operational Staffing',
+      desc: 'Primary-source credentialed healthcare workforce: specialist physicians, ICU nurses, EMT paramedics, biomedical engineers, and sanitization teams.',
       icon: Users,
-      color: 'from-indigo-600 to-blue-600',
-      textColor: 'text-indigo-600',
-      bgColor: 'bg-indigo-50',
-      borderColor: 'border-indigo-200',
       link: '/manpower',
+      image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1000&q=80',
       highlights: [
-        'Healthcare Skilled: MD Physicians & Surgeons',
-        'Registered Nurses (ICU, ER, Surgical, Wards)',
+        'Specialist Physicians & Surgeons',
+        'ICU & ER Registered Nurses (RN/BSN)',
         'Certified Paramedics & Emergency EMTs',
-        'Skilled Labour: Biomedical & Lab Technicians',
-        'Unskilled & Operational Hospital Orderlies',
-        'Comprehensive Credential & License Verification'
-      ],
-      image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1000&q=80'
+        'Biomedical Engineers & Support Orderlies'
+      ]
     },
     {
-      id: 'rental',
-      title: '4. Rental & Fleet Solutions',
-      shortTitle: 'Rental',
-      tagline: 'ALS Ambulances, Heavy Equipment & Mobile Dental Clinics',
-      desc: 'Institutional leasing and on-demand dispatch of fully equipped emergency ambulances, mobile CT/MRI trailers, heavy oxygen generation plants, and turnkey mobile dental units.',
+      id: 'rental-division',
+      title: 'Rental & Fleet Services',
+      category: 'Specialized Vehicles & Heavy Units',
+      desc: 'Turnkey institutional leasing of Type III ALS emergency ambulances, mobile CT/MRI scanning trailers, medical oxygen plants, and mobile dental vans.',
       icon: Car,
-      color: 'from-sky-600 to-teal-600',
-      textColor: 'text-sky-600',
-      bgColor: 'bg-sky-50',
-      borderColor: 'border-sky-200',
       link: '/rental',
+      image: 'https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=1000&q=80',
       highlights: [
-        'Type I, II, III ALS & BLS Ambulance Rentals',
+        'Type I, II, III ALS & BLS Ambulance Units',
         'Mobile Diagnostic CT / MRI Scanner Trailers',
-        'High-Output Mobile Medical Oxygen Plants',
-        'Turnkey Mobile Dental Operatory Units',
-        'Industrial Hospital Steam Autoclaves',
-        'Full Maintenance & Calibration Service Included'
-      ],
-      image: 'https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=1000&q=80'
+        'Mobile PSA Medical Oxygen Generation Plants',
+        'Turnkey Mobile Dental Operatory Clinics'
+      ]
     }
   ];
 
   return (
-    <div className="space-y-12 sm:space-y-16 pb-16">
+    <div className="space-y-16 sm:space-y-24 pb-16">
       
-      {/* HERO SECTION */}
-      <section className="relative pt-4 sm:pt-6 pb-8 sm:pb-10 overflow-hidden bg-gradient-to-b from-white via-slate-50/60 to-slate-100/40 border-b border-slate-200/60">
-        {/* Subtle grid background and gradient glows */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none"></div>
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-primary-400/10 via-sky-300/10 to-teal-300/10 rounded-full blur-3xl pointer-events-none"></div>
+      {/* 1. ABDULLA FOUAD STYLE HERO SLIDER (High-Impact Photographic Carousel) */}
+      <section className="relative h-[560px] sm:h-[640px] lg:h-[700px] w-full overflow-hidden bg-navy-950">
+        {heroSlides.map((slide, idx) => (
+          <div
+            key={idx}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              currentSlide === idx ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+            }`}
+          >
+            {/* Background image with enterprise dark gradient overlay */}
+            <img
+              src={slide.bgImage}
+              alt={slide.title}
+              className="w-full h-full object-cover object-center scale-105 transform animate-fadeSlide"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-950/75 to-navy-900/40"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-4xl mx-auto space-y-3.5 sm:space-y-4">
-            
-            {/* Main Headline */}
-            <h1 className="text-3xl sm:text-4.5xl lg:text-5.5xl font-extrabold text-slate-900 tracking-tight leading-[1.18] sm:leading-[1.15]">
-              <span className="block">Precision Logistics.</span>
-              <span className="block">Certified Healthcare.</span>
-              <span className="block">Empowered Staffing.</span>
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary-600 via-primary-700 to-accent-600">
-                Agile Fleet.
-              </span>
-            </h1>
+            {/* Slide Text Content */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center relative z-20">
+              <div className="max-w-3xl space-y-4 sm:space-y-6 pt-10">
+                
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/10 backdrop-blur-md border border-white/20 text-primary-300 text-xs font-bold tracking-widest uppercase">
+                  <span className="w-2 h-2 rounded-full bg-primary-400"></span>
+                  {slide.tag}
+                </div>
 
-            {/* Subtitle */}
-            <p className="text-sm sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-normal">
-              Medical Solutions provides high-reliability integrated services for hospitals, pharmaceutical corporations, and health ministries: 
-              from cold-chain freight and certified clinical hardware to doctors, nurses, and ambulance fleet leasing.
-            </p>
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12]">
+                  {slide.title}
+                </h1>
 
-            {/* CTA Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
-              <button
-                onClick={() => onOpenQuote()}
-                className="w-full sm:w-auto px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl font-semibold text-sm sm:text-base text-white bg-primary-600 hover:bg-primary-700 active:bg-primary-800 transition-all shadow-md shadow-primary-600/25 flex items-center justify-center gap-2 active:scale-[0.99]"
-              >
-                <span>Request Enterprise Proposal</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+                <p className="text-sm sm:text-lg lg:text-xl text-slate-200 leading-relaxed max-w-2xl font-normal">
+                  {slide.subtitle}
+                </p>
 
-              <a
-                href="#four-pillars"
-                className="w-full sm:w-auto px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl font-semibold text-sm sm:text-base text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 transition-all shadow-xs flex items-center justify-center gap-2 active:scale-[0.99]"
-              >
-                <span>Explore 4 Core Verticals</span>
-              </a>
-            </div>
+                <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <button
+                    onClick={() => {
+                      const el = document.getElementById(slide.targetId) || document.getElementById('our-sectors');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="px-7 py-3.5 rounded-xl font-bold text-sm text-white bg-primary-600 hover:bg-primary-500 active:bg-primary-700 transition-all shadow-lg shadow-primary-600/30 flex items-center justify-center gap-2"
+                  >
+                    <span>{slide.cta}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
 
-            {/* Trust Points */}
-            <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-xs font-semibold text-slate-500">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
-                <span>GDP Cold-Chain (-80°C to +25°C)</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                <span>ISO 13485:2016 Certified Supplies</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-primary-500 shrink-0" />
-                <span>24/7 Rapid Emergency Response</span>
+                  <button
+                    onClick={() => onOpenQuote()}
+                    className="px-7 py-3.5 rounded-xl font-bold text-sm text-white bg-white/10 hover:bg-white/20 border border-white/30 backdrop-blur-md transition-all flex items-center justify-center gap-2"
+                  >
+                    <span>Request Proposal</span>
+                  </button>
+                </div>
+
               </div>
             </div>
           </div>
+        ))}
 
-          {/* Stats Bar */}
-          <div className="mt-8 sm:mt-10 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-6 bg-white p-4 sm:p-8 rounded-2xl border border-slate-200/80 shadow-soft">
-            {clientStats.map((stat, idx) => (
-              <div key={idx} className="text-center p-2.5 sm:p-3 border-r even:border-r-0 md:even:border-r md:last:border-r-0 border-slate-100">
-                <div className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-700 to-primary-500">
-                  {stat.value}
-                </div>
-                <div className="font-semibold text-slate-800 text-xs sm:text-sm mt-0.5 sm:mt-1">
-                  {stat.label}
-                </div>
-                <div className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5 line-clamp-1">
-                  {stat.sub}
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Carousel Arrow Controls */}
+        <button
+          onClick={() => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-md border border-white/20 text-white flex items-center justify-center transition-all hidden sm:flex"
+          aria-label="Previous Slide"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+
+        <button
+          onClick={() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-md border border-white/20 text-white flex items-center justify-center transition-all hidden sm:flex"
+          aria-label="Next Slide"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+
+        {/* Carousel Indicators */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+          {heroSlides.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentSlide(idx)}
+              className={`h-2 rounded-full transition-all ${
+                currentSlide === idx ? 'w-8 bg-primary-500' : 'w-2 bg-white/40 hover:bg-white/60'
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
         </div>
       </section>
 
-      {/* FOUR CORE VERTICALS OVERVIEW */}
-      <section id="four-pillars" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          badge="Complete Service Ecosystem"
-          title="The Four Strategic Pillars of Medical Solutions"
-          description="Designed to eliminate operational friction across clinical procurement, supply chains, medical personnel staffing, and emergency vehicle fleet management."
-        />
+      {/* 2. STATS & REPUTATION STRIP (Abdulla Fouad Group metrics bar) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 sm:-mt-16 relative z-30">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/90 shadow-xl">
+          {clientStats.map((stat, idx) => (
+            <div key={idx} className="p-3 text-center border-r last:border-r-0 even:border-r-0 lg:even:border-r border-slate-100">
+              <div className="text-2xl sm:text-4xl font-extrabold text-navy-950 tracking-tight">
+                {stat.value}
+              </div>
+              <div className="font-bold text-slate-800 text-xs sm:text-sm mt-1">
+                {stat.label}
+              </div>
+              <div className="text-[11px] text-slate-400 mt-0.5">
+                {stat.sub}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {pillars.map((pillar) => {
-            const Icon = pillar.icon;
+      {/* 3. WHO WE ARE (Corporate Overview as in Abdulla Fouad structure) */}
+      <section id="who-we-are" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          <div className="lg:col-span-6 space-y-5">
+            <span className="text-xs font-bold text-primary-600 uppercase tracking-widest block">
+              CORPORATE OVERVIEW
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-navy-950 tracking-tight leading-tight">
+              A Premier Conglomerate Driving Regional Healthcare & Supply Chain Excellence
+            </h2>
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+              Medical Solutions Group stands at the forefront of integrated healthcare provision, pharmaceutical cold-chain transport, clinical manpower augmentation, and emergency fleet leasing. Inspired by industry pioneers, our enterprise serves health ministries, tertiary hospital networks, research laboratories, and corporate partners across the region.
+            </p>
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+              Our multidisciplinary divisions operate under strict global governance—from ISO 13485:2016 quality management for medical hardware to Good Distribution Practice (GDP) cold corridors—ensuring unwavering compliance and life-saving reliability.
+            </p>
+
+            <div className="pt-2 grid grid-cols-2 gap-4">
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                <div className="text-2xl font-bold text-primary-600">25+ Years</div>
+                <div className="text-xs font-medium text-slate-600 mt-0.5">Operational Legacy & Trust</div>
+              </div>
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                <div className="text-2xl font-bold text-primary-600">100%</div>
+                <div className="text-xs font-medium text-slate-600 mt-0.5">Primary-Source Credentialed</div>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <button
+                onClick={() => onOpenQuote()}
+                className="inline-flex items-center gap-2 text-sm font-bold text-primary-600 hover:text-primary-700 group"
+              >
+                <span>Read our institutional capabilities statement</span>
+                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </div>
+
+          <div className="lg:col-span-6">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
+              <img
+                src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80"
+                alt="Medical Solutions Laboratory & Diagnostic Architecture"
+                className="w-full h-[420px] object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent"></div>
+              <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
+                <div className="text-xs font-bold uppercase tracking-wider text-primary-300">VISION STATEMENT</div>
+                <h3 className="text-xl font-bold">Enhancing Patient Health & Enterprise Continuity</h3>
+                <p className="text-xs text-slate-200">Creating long-term clinical and supply chain value through sustainable innovation.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 4. OUR SECTORS / BUSINESS UNITS (Abdulla Fouad Group Core Section) */}
+      <section id="our-sectors" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <span className="text-xs font-bold text-primary-600 uppercase tracking-widest block mb-2">
+            BUSINESS DIVISIONS
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-navy-950 tracking-tight">
+            Our Core Operating Sectors
+          </h2>
+          <p className="text-slate-600 text-sm sm:text-base mt-3 leading-relaxed">
+            Delivering specialized excellence across four distinct industry verticals, structured to eliminate operational friction for public and private healthcare entities.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {sectors.map((sec) => {
+            const Icon = sec.icon;
             return (
-              <div 
-                key={pillar.id}
-                className="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-soft hover:shadow-premium transition-all duration-300 flex flex-col justify-between group"
+              <div
+                key={sec.id}
+                id={sec.id}
+                className="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-soft hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
-                  {/* Image header with category pill */}
-                  <div className="relative h-56 sm:h-64 overflow-hidden">
-                    <img 
-                      src={pillar.image} 
-                      alt={pillar.title} 
+                  <div className="relative h-60 overflow-hidden">
+                    <img
+                      src={sec.image}
+                      alt={sec.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent"></div>
-                    <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-white/95 text-slate-900 backdrop-blur-md shadow-sm">
-                        {pillar.shortTitle}
-                      </span>
-                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/30 to-transparent"></div>
+                    <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold bg-white text-navy-950 shadow-md">
+                      {sec.category}
+                    </span>
                     <div className="absolute bottom-4 left-4 right-4 text-white">
                       <div className="flex items-center gap-2 mb-1">
-                        <div className="w-8 h-8 rounded-lg bg-primary-500/80 backdrop-blur-md flex items-center justify-center text-white">
+                        <div className="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center text-white">
                           <Icon className="w-4 h-4" />
                         </div>
                         <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
-                          {pillar.title}
+                          {sec.title}
                         </h3>
                       </div>
-                      <p className="text-xs sm:text-sm text-slate-200">
-                        {pillar.tagline}
-                      </p>
                     </div>
                   </div>
 
-                  {/* Body description & highlights */}
-                  <div className="p-6 sm:p-7 space-y-5">
+                  <div className="p-6 sm:p-7 space-y-4">
                     <p className="text-slate-600 text-sm leading-relaxed">
-                      {pillar.desc}
+                      {sec.desc}
                     </p>
 
                     <div className="space-y-2 border-t border-slate-100 pt-4">
-                      <span className="text-xs font-bold text-slate-800 uppercase tracking-wider block">
-                        Included Services & Capabilities:
+                      <span className="text-xs font-bold text-slate-900 uppercase tracking-wider block">
+                        Core Capabilities & Scope:
                       </span>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
-                        {pillar.highlights.map((highlight, hIdx) => (
+                        {sec.highlights.map((h, hIdx) => (
                           <div key={hIdx} className="flex items-start gap-2">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-primary-500 shrink-0 mt-0.5" />
-                            <span>{highlight}</span>
+                            <CheckCircle2 className="w-3.5 h-3.5 text-primary-600 shrink-0 mt-0.5" />
+                            <span>{h}</span>
                           </div>
                         ))}
                       </div>
@@ -272,21 +376,20 @@ export default function Home({ onOpenQuote }) {
                   </div>
                 </div>
 
-                {/* Card footer CTA */}
                 <div className="p-6 pt-0 sm:p-7 sm:pt-0">
                   <div className="flex items-center justify-between gap-3 pt-4 border-t border-slate-100">
                     <Link
-                      to={pillar.link}
-                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors group-hover:underline"
+                      to={sec.link}
+                      className="inline-flex items-center gap-1.5 text-sm font-bold text-primary-600 hover:text-primary-700 transition-colors group-hover:underline"
                     >
-                      <span>Explore Department Details</span>
+                      <span>Explore Division & Catalog</span>
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                     <button
-                      onClick={() => onOpenQuote(pillar.shortTitle)}
-                      className="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors"
+                      onClick={() => onOpenQuote(sec.title)}
+                      className="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors"
                     >
-                      Instant Quote
+                      Instant RFP
                     </button>
                   </div>
                 </div>
@@ -296,318 +399,127 @@ export default function Home({ onOpenQuote }) {
         </div>
       </section>
 
-      {/* INTERACTIVE SOLUTION SELECTOR */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-navy-950 text-white rounded-3xl p-6 sm:p-10 lg:p-12 relative overflow-hidden border border-navy-800 shadow-2xl">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
-          <div className="max-w-3xl mb-8">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
-              What does your healthcare organization require today?
+      {/* 5. STRATEGIC ALLIANCES & PARTNERS (As in Abdulla Fouad site) */}
+      <section id="partners" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div className="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 border border-slate-800">
+          <div className="text-center max-w-3xl mx-auto mb-10 space-y-2">
+            <span className="text-xs font-bold text-primary-400 uppercase tracking-widest block">
+              GLOBAL ALLIANCES
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Trusted by Premier Healthcare Institutions & Ministries
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base mt-2">
-              Select an area below to view operational protocols, standard turnarounds, and compliance parameters.
+            <p className="text-slate-300 text-sm leading-relaxed">
+              We collaborate with multinational medical manufacturers, accredited pharmaceutical bodies, and sovereign healthcare providers.
             </p>
           </div>
 
-          {/* Solution Selector Pills */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             {[
-              { id: 'logistics', label: 'Logistics & Cold Chain', icon: Truck },
-              { id: 'health', label: 'Medical Supplies & Devices', icon: Activity },
-              { id: 'manpower', label: 'Physicians & Staffing', icon: Users },
-              { id: 'rental', label: 'Ambulances & Fleet', icon: Car },
-            ].map((tab) => {
-              const TabIcon = tab.icon;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setSelectedSolution(tab.id)}
-                  className={`p-3.5 sm:p-4 rounded-xl text-left border transition-all flex flex-col justify-between gap-3 ${
-                    selectedSolution === tab.id
-                      ? 'bg-primary-600/20 border-primary-500 text-white shadow-lg'
-                      : 'bg-navy-900/60 border-navy-800 text-slate-400 hover:text-slate-200 hover:border-navy-700'
-                  }`}
-                >
-                  <TabIcon className={`w-5 h-5 ${selectedSolution === tab.id ? 'text-primary-400' : 'text-slate-500'}`} />
-                  <span className="text-xs sm:text-sm font-semibold">{tab.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Dynamic Details Box */}
-          <div className="bg-navy-900/90 rounded-2xl p-6 sm:p-8 border border-navy-800">
-            {selectedSolution === 'logistics' && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <h4 className="text-base font-bold text-white mb-2">Validated Freight Network</h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Ocean reefer, air freight charters, and nationwide temperature trucks monitored via active satellite telemetry 24/7.
-                  </p>
-                  <div className="mt-4 text-xs font-semibold text-primary-400 flex items-center gap-1">
-                    <Thermometer className="w-3.5 h-3.5" /> -80°C to +25°C Active Range
-                  </div>
+              { name: 'Ministry of Health Networks', label: 'Governmental Health Partner' },
+              { name: 'Tertiary Teaching Hospitals', label: 'Clinical Staffing & ICU Tech' },
+              { name: 'Multinational Pharma Labs', label: 'Cold-Chain GDP Logistics' },
+              { name: 'National Emergency Response', label: 'Ambulance Fleet Provision' }
+            ].map((p, idx) => (
+              <div key={idx} className="p-5 rounded-2xl bg-slate-800/70 border border-slate-700/80">
+                <div className="w-10 h-10 rounded-xl bg-primary-500/20 text-primary-400 flex items-center justify-center mx-auto mb-3">
+                  <ShieldCheck className="w-5 h-5" />
                 </div>
-                <div>
-                  <h4 className="text-base font-bold text-white mb-2">Customs & Terminal Hubs</h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Zero-delay green customs clearance for narcotics, emergency vaccines, and medical diagnostic machinery.
-                  </p>
-                  <div className="mt-4 text-xs font-semibold text-emerald-400 flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5" /> GDP Certified Storage Vaults
-                  </div>
-                </div>
-                <div className="flex flex-col justify-between bg-navy-950 p-4 rounded-xl border border-navy-800/80">
-                  <div className="text-xs text-slate-300">
-                    Need a custom freight lane or cold-chain quote?
-                  </div>
-                  <div className="space-y-2 mt-4">
-                    <button
-                      onClick={() => onOpenQuote('Logistics')}
-                      className="w-full py-2 px-3 rounded-lg bg-primary-600 hover:bg-primary-500 text-white text-xs font-semibold transition-colors"
-                    >
-                      Calculate Freight Quote
-                    </button>
-                    <Link
-                      to="/logistics"
-                      className="block text-center text-xs text-slate-400 hover:text-white transition-colors"
-                    >
-                      View all logistics capabilities &rarr;
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {selectedSolution === 'health' && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <h4 className="text-base font-bold text-white mb-2">Hospital Hardware & Devices</h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    ICU monitors, digital C-arms, mobile fluoroscopy, infusion syringe pumps, and defibrillators with full calibration certs.
-                  </p>
-                  <div className="mt-4 text-xs font-semibold text-primary-400 flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5" /> ISO 13485:2016 Compliant
-                  </div>
-                </div>
-                <div>
-                  <h4 className="text-base font-bold text-white mb-2">Consumables & Corporate Supply</h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Sterile surgical drape kits, nitrile gloves (box of 200), and bulk formulary medicine contracts for retail/corporate chains.
-                  </p>
-                  <div className="mt-4 text-xs font-semibold text-emerald-400 flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5" /> Direct Tier-1 Wholesale Pricing
-                  </div>
-                </div>
-                <div className="flex flex-col justify-between bg-navy-950 p-4 rounded-xl border border-navy-800/80">
-                  <div className="text-xs text-slate-300">
-                    Procuring bulk equipment or annual hospital consumables?
-                  </div>
-                  <div className="space-y-2 mt-4">
-                    <button
-                      onClick={() => onOpenQuote('Health Supplies')}
-                      className="w-full py-2 px-3 rounded-lg bg-primary-600 hover:bg-primary-500 text-white text-xs font-semibold transition-colors"
-                    >
-                      Request Product Catalog RFP
-                    </button>
-                    <Link
-                      to="/health"
-                      className="block text-center text-xs text-slate-400 hover:text-white transition-colors"
-                    >
-                      Explore healthcare catalog &rarr;
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {selectedSolution === 'manpower' && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <h4 className="text-base font-bold text-white mb-2">Specialist Clinical Personnel</h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Board-certified emergency physicians, ICU intensivists, scrub/circulating nurses, and advanced flight paramedics.
-                  </p>
-                  <div className="mt-4 text-xs font-semibold text-primary-400 flex items-center gap-1">
-                    <Users className="w-3.5 h-3.5" /> 100% License & Credential Vetted
-                  </div>
-                </div>
-                <div>
-                  <h4 className="text-base font-bold text-white mb-2">Technical & Support Labour</h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Biomedical equipment repair technicians, cleanroom sanitization crews, hospital orderlies, and pharma warehouse handlers.
-                  </p>
-                  <div className="mt-4 text-xs font-semibold text-emerald-400 flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" /> 48-Hour Rapid Surge Deployment
-                  </div>
-                </div>
-                <div className="flex flex-col justify-between bg-navy-950 p-4 rounded-xl border border-navy-800/80">
-                  <div className="text-xs text-slate-300">
-                    Facing a nursing or physician staffing shortage?
-                  </div>
-                  <div className="space-y-2 mt-4">
-                    <button
-                      onClick={() => onOpenQuote('Manpower Solutions')}
-                      className="w-full py-2 px-3 rounded-lg bg-primary-600 hover:bg-primary-500 text-white text-xs font-semibold transition-colors"
-                    >
-                      Request Staffing Roster
-                    </button>
-                    <Link
-                      to="/manpower"
-                      className="block text-center text-xs text-slate-400 hover:text-white transition-colors"
-                    >
-                      Browse credentialed roles &rarr;
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {selectedSolution === 'rental' && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <h4 className="text-base font-bold text-white mb-2">Ambulances & Mobile Clinics</h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Type III Advanced Life Support (ALS) ambulances, basic patient transports, and turnkey mobile dental screening vans.
-                  </p>
-                  <div className="mt-4 text-xs font-semibold text-primary-400 flex items-center gap-1">
-                    <Car className="w-3.5 h-3.5" /> Ready for Immediate Dispatch
-                  </div>
-                </div>
-                <div>
-                  <h4 className="text-base font-bold text-white mb-2">Heavy Hospital Equipment</h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Mobile CT/MRI imaging trailers, containerized hospital PSA oxygen generation plants, and high-capacity steam autoclaves.
-                  </p>
-                  <div className="mt-4 text-xs font-semibold text-emerald-400 flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5" /> Comprehensive SLA & Maintenance
-                  </div>
-                </div>
-                <div className="flex flex-col justify-between bg-navy-950 p-4 rounded-xl border border-navy-800/80">
-                  <div className="text-xs text-slate-300">
-                    Need emergency fleet or temporary scan capacity?
-                  </div>
-                  <div className="space-y-2 mt-4">
-                    <button
-                      onClick={() => onOpenQuote('Rental & Fleet')}
-                      className="w-full py-2 px-3 rounded-lg bg-primary-600 hover:bg-primary-500 text-white text-xs font-semibold transition-colors"
-                    >
-                      Check Fleet Availability
-                    </button>
-                    <Link
-                      to="/rental"
-                      className="block text-center text-xs text-slate-400 hover:text-white transition-colors"
-                    >
-                      Explore rental specifications &rarr;
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* WHY MEDICAL SOLUTIONS - VALUE PROPOSITION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          badge="Enterprise Reliability"
-          title="Why Leading Healthcare Institutions Trust Us"
-          description="Built on uncompromising compliance, precision engineering, and round-the-clock emergency mobilization."
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-soft hover:border-primary-200 transition-colors">
-            <div className="w-12 h-12 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center mb-5">
-              <Thermometer className="w-6 h-6" />
-            </div>
-            <h3 className="text-lg font-bold text-slate-900 mb-2">Validated Cold Chain & Zero Excursion</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Every shipment is backed by continuous IoT data-loggers, multi-redundant reefer cooling, and pre-cleared customs corridors that protect critical drug viability.
-            </p>
-          </div>
-
-          <div className="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-soft hover:border-primary-200 transition-colors">
-            <div className="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center mb-5">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
-            <h3 className="text-lg font-bold text-slate-900 mb-2">Rigorous Institutional Quality Standards</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              From CE & FDA-cleared surgical devices to JCI-compliant medical credentialing, our workflows satisfy the strictest audit benchmarks globally.
-            </p>
-          </div>
-
-          <div className="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-soft hover:border-primary-200 transition-colors">
-            <div className="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-5">
-              <Clock className="w-6 h-6" />
-            </div>
-            <h3 className="text-lg font-bold text-slate-900 mb-2">24/7/365 Rapid Response Operations</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Our dispatch centers maintain live readiness around the clock for sudden hospital surges, emergency ambulance call-outs, and urgent pharma replenishments.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className="bg-slate-100/70 py-16 border-y border-slate-200/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            badge="Institutional Endorsements"
-            title="Trusted by Healthcare Leaders & Global Networks"
-            description="Proven execution across hospital networks, international pharmaceutical enterprises, and emergency response bodies."
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((item, idx) => (
-              <div 
-                key={idx}
-                className="bg-white p-7 rounded-2xl border border-slate-200 shadow-soft flex flex-col justify-between"
-              >
-                <div className="space-y-4">
-                  <div className="flex text-amber-400 gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <span key={i} className="text-base">&#9733;</span>
-                    ))}
-                  </div>
-                  <p className="text-slate-700 text-sm italic leading-relaxed">
-                    "{item.quote}"
-                  </p>
-                </div>
-                <div className="pt-6 mt-6 border-t border-slate-100">
-                  <div className="font-bold text-sm text-slate-900">{item.author}</div>
-                  <div className="text-xs text-primary-600 font-medium">{item.role}</div>
-                  <div className="text-xs text-slate-500 mt-0.5">{item.org}</div>
-                </div>
+                <div className="font-bold text-white text-sm">{p.name}</div>
+                <div className="text-xs text-slate-400 mt-1">{p.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* BOTTOM CTA BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-r from-primary-700 via-primary-600 to-accent-600 rounded-3xl p-8 sm:p-12 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div className="max-w-2xl space-y-3 text-center lg:text-left">
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-              Ready to Upgrade Your Healthcare Supply Chain & Operations?
+      {/* 6. MEDIA CENTER & INDUSTRY INSIGHTS (Abdulla Fouad structure) */}
+      <section id="media-center" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+          <div>
+            <span className="text-xs font-bold text-primary-600 uppercase tracking-widest block mb-1">
+              MEDIA CENTER
+            </span>
+            <h2 className="text-3xl font-extrabold text-navy-950 tracking-tight">
+              Latest News & Institutional Announcements
             </h2>
-            <p className="text-primary-100 text-sm sm:text-base leading-relaxed">
-              Connect with our solutions directors. We provide comprehensive SLAs, technical datasheets, and expedited onboarding for corporate partners.
+          </div>
+          <Link
+            to="/contact"
+            className="text-xs font-bold text-primary-600 hover:underline inline-flex items-center gap-1"
+          >
+            Media Inquiries & Press Desk &rarr;
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            {
+              date: "October 2026",
+              title: "Expansion of GDP-Validated Cold-Chain Terminals",
+              desc: "Addition of deep-freeze (-80°C) cryogenic vaults supporting nationwide biologic and cellular therapy distribution.",
+              category: "Supply Chain"
+            },
+            {
+              date: "September 2026",
+              title: "Clinical Staffing Deployment for Regional ICU Wing",
+              desc: "Mobilization of 45 board-certified intensivists and critical care nurses under 72-hour turnaround SLA.",
+              category: "Manpower"
+            },
+            {
+              date: "August 2026",
+              title: "New Fleet Delivery of Type III ALS Ambulances",
+              desc: "Deployment of custom Stryker cot-equipped mobile intensive care units for municipal emergency response services.",
+              category: "Fleet Leasing"
+            }
+          ].map((item, idx) => (
+            <div key={idx} className="p-6 bg-white rounded-2xl border border-slate-200/90 shadow-soft flex flex-col justify-between">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs text-slate-400">
+                  <span>{item.date}</span>
+                  <span className="font-semibold text-primary-600 uppercase tracking-wider">{item.category}</span>
+                </div>
+                <h3 className="text-base font-bold text-navy-950">{item.title}</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">{item.desc}</p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-slate-100">
+                <button
+                  onClick={() => onOpenQuote()}
+                  className="text-xs font-bold text-primary-600 hover:text-primary-700 flex items-center gap-1"
+                >
+                  Read announcement details &rarr;
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 7. INSTITUTIONAL CALLOUT & RFP BANNER */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-r from-navy-950 via-primary-900 to-navy-950 rounded-3xl p-8 sm:p-12 text-white shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8 border border-navy-800">
+          <div className="max-w-2xl space-y-3 text-center lg:text-left">
+            <span className="text-xs font-bold uppercase tracking-widest text-primary-400">
+              STRATEGIC PARTNERSHIPS & TENDERS
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+              Ready to Partner With Medical Solutions Group?
+            </h2>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+              Connect with our corporate procurement, supply chain, and clinical staffing directors. We provide comprehensive SLAs, compliance data, and priority onboarding.
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0">
             <button
               onClick={() => onOpenQuote()}
-              className="px-7 py-3.5 rounded-xl font-semibold text-sm bg-white text-primary-700 hover:bg-primary-50 transition-colors shadow-md text-center"
+              className="px-7 py-3.5 rounded-xl font-bold text-sm bg-primary-600 hover:bg-primary-500 text-white transition-colors shadow-md text-center"
             >
-              Request Custom Quote
+              Request Custom Proposal
             </button>
             <Link
               to="/contact"
-              className="px-7 py-3.5 rounded-xl font-semibold text-sm bg-primary-800/60 hover:bg-primary-800 text-white border border-white/20 transition-colors text-center"
+              className="px-7 py-3.5 rounded-xl font-bold text-sm bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors text-center"
             >
               Contact Operations Desk
             </Link>
