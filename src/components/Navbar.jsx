@@ -134,16 +134,6 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                 <Mail className="w-3 h-3 text-sky-400" />
                 <span>{companyDetails.email}</span>
               </a>
-
-              <span className="text-slate-700">|</span>
-
-              {/* Language Switcher Badge (En / العربية as in Abdulla Fouad site) */}
-              <div className="flex items-center gap-1.5 text-slate-300 font-semibold cursor-pointer hover:text-white">
-                <Globe className="w-3 h-3 text-sky-400" />
-                <span className="text-white">EN</span>
-                <span className="text-slate-500">/</span>
-                <span className="text-slate-400 hover:text-sky-300 transition-colors font-normal">العربية</span>
-              </div>
             </div>
 
           </div>
@@ -154,7 +144,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-22 flex items-center justify-between">
             
             {/* Enterprise Logo: Clean, typographic, professional without rounded box */}
-            <Link to="/" className="flex items-center gap-3.5 group shrink-0">
+            <Link to="/" className="flex items-center gap-3.5 group shrink-0 mr-8 xl:mr-12">
               <div className="flex items-center justify-center text-primary-700">
                 <svg className="w-9 h-9 sm:w-10 sm:h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M20 4L4 12V28L20 36L36 28V12L20 4Z" stroke="#0369A1" strokeWidth="2.5" strokeLinejoin="round"/>
@@ -164,14 +154,9 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
                 </svg>
               </div>
               <div className="flex flex-col">
-                <div className="flex items-baseline gap-2">
-                  <span className="font-display font-extrabold text-xl sm:text-2xl tracking-tight text-slate-900 leading-none">
-                    MEDICAL <span className="text-primary-700">SOLUTIONS</span>
-                  </span>
-                  <span className="text-[10px] font-black text-slate-400 tracking-widest uppercase hidden md:inline">
-                    GROUP
-                  </span>
-                </div>
+                <span className="font-display font-extrabold text-xl sm:text-2xl tracking-tight text-slate-900 leading-none">
+                  MEDICAL <span className="text-primary-700">SOLUTIONS</span>
+                </span>
                 <span className="text-[10px] tracking-wider uppercase font-semibold text-slate-500 mt-1">
                   Healthcare & Enterprise Infrastructure
                 </span>
@@ -179,7 +164,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
             </Link>
 
             {/* Desktop Navigation Links (Abdulla Fouad Group exact typography: uppercase, clean, elegant text) */}
-            <nav className="hidden lg:flex items-center gap-7 xl:gap-9">
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-8 flex-1 justify-center">
               <NavLink 
                 to="/" 
                 end
