@@ -68,28 +68,28 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
     {
       title: 'Healthcare Solutions',
       path: '/health',
-      desc: 'Hospital ICU monitors, fluoroscopy, surgical devices, and corporate pharmacy formularies',
+      desc: 'Hospital ICU monitors, surgical devices, and pharmacy formularies',
       icon: Activity,
       badge: 'AFMS Standard'
     },
     {
       title: 'Supply Chain & Logistics',
       path: '/logistics',
-      desc: 'Ocean reefer, air charter, cold chain warehousing (-80°C to +25°C), and customs clearance',
+      desc: 'Ocean reefer, air cargo, and -80°C to +25°C cold storage vaults',
       icon: Truck,
       badge: 'GDP Certified'
     },
     {
       title: 'Manpower Solutions',
       path: '/manpower',
-      desc: 'Specialist physicians, ICU registered nurses, certified EMT paramedics, and biomedical techs',
+      desc: 'Credentialed physicians, ICU registered nurses, and paramedics',
       icon: Users,
       badge: '100% Vetted'
     },
     {
       title: 'Rental & Fleet Services',
       path: '/rental',
-      desc: 'Type I, II, III ALS ambulances, mobile CT/MRI trailers, and mobile dental clinics',
+      desc: 'Type I, II, III ALS ambulances and mobile diagnostic trailers',
       icon: Car,
       badge: 'Immediate Dispatch'
     }
@@ -99,7 +99,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
     <>
       <header className={`sticky top-0 z-50 w-full bg-white transition-shadow duration-200 ${scrolled ? 'shadow-md border-b border-slate-200' : 'border-b border-slate-200/90'}`}>
         
-        {/* Top Corporate Strip (Abdulla Fouad style thin metadata bar) */}
+        {/* Top Corporate Strip (Hidden on mobile phones, visible on sm+) */}
         <div className="bg-slate-900 text-slate-300 text-[11px] border-b border-slate-800 hidden sm:block">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex justify-between items-center">
             
@@ -137,31 +137,31 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
           </div>
         </div>
 
-        {/* Main Enterprise Navigation Bar (Fully centered, beautifully proportioned, zero-overflow) */}
+        {/* Main Enterprise Navigation Bar (Responsive height: h-16 mobile, h-20 desktop) */}
         <div className="bg-white">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+          <div className="max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
             
             {/* Zone 1: Brand Logo (Left) */}
             <div className="flex items-center shrink-0">
-              <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group">
+              <Link to="/" className="flex items-center gap-2 sm:gap-3 group">
                 <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-primary-700 flex items-center justify-center text-white shadow-xs group-hover:bg-primary-800 transition-colors shrink-0">
-                  <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 2v20M2 12h20"/>
                   </svg>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-display font-extrabold text-base sm:text-lg tracking-tight text-slate-900 leading-tight">
+                  <span className="font-display font-extrabold text-sm sm:text-lg tracking-tight text-slate-900 leading-tight">
                     MEDICAL <span className="text-primary-700">SOLUTIONS</span>
                   </span>
-                  <span className="text-[9px] tracking-wider uppercase font-semibold text-slate-400">
+                  <span className="text-[8px] sm:text-[9px] tracking-wider uppercase font-semibold text-slate-400 leading-none mt-0.5">
                     Healthcare & Enterprise
                   </span>
                 </div>
               </Link>
             </div>
 
-            {/* Zone 2: Navigation Links — Perfectly Centered in Header */}
-            <nav className="hidden lg:flex items-center justify-center flex-1 h-20 gap-3 xl:gap-6 2xl:gap-7 text-xs xl:text-[13px] mx-3 xl:mx-6">
+            {/* Zone 2: Navigation Links — Centered on Desktop (hidden on mobile/tablet < 1024px) */}
+            <nav className="hidden lg:flex items-center justify-center flex-1 h-16 sm:h-20 gap-3 xl:gap-6 2xl:gap-7 text-xs xl:text-[13px] mx-3 xl:mx-6">
               <NavLink 
                 to="/" 
                 end
@@ -300,7 +300,7 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
               </NavLink>
             </nav>
 
-            {/* Zone 3: Actions (Right) */}
+            {/* Zone 3: Desktop Actions (Right) */}
             <div className="hidden lg:flex items-center justify-end shrink-0 gap-2.5 xl:gap-3 pl-3 border-l border-slate-200">
               <button
                 onClick={onOpenSearch}
@@ -320,142 +320,196 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
               </button>
             </div>
 
-            {/* Mobile Actions (< 1024px) */}
-            <div className="flex lg:hidden items-center gap-2">
+            {/* Mobile Actions Header Bar (< 1024px) */}
+            <div className="flex lg:hidden items-center gap-1.5 sm:gap-2">
               <button
                 onClick={onOpenSearch}
-                className="p-2 text-slate-600 hover:text-slate-900"
+                className="p-2 text-slate-600 hover:text-slate-900 rounded-lg"
                 aria-label="Search"
               >
-                <Search className="w-5 h-5" />
+                <Search className="w-4.5 h-4.5" />
               </button>
               
               <button
                 onClick={() => onOpenQuote()}
-                className="px-3 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider bg-primary-700 text-white"
+                className="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-primary-700 text-white shadow-xs"
               >
                 Quote
               </button>
 
               <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-slate-700 hover:text-slate-900 focus:outline-none ml-1"
-                aria-label="Toggle navigation menu"
+                onClick={() => setMobileMenuOpen(true)}
+                className="p-2 text-slate-700 hover:text-slate-900 rounded-lg focus:outline-none"
+                aria-label="Open navigation menu"
               >
-                {mobileMenuOpen ? <X className="w-6 h-6 text-primary-700" /> : <Menu className="w-6 h-6" />}
+                <Menu className="w-6 h-6 text-slate-800" />
               </button>
             </div>
 
           </div>
         </div>
 
-        {/* Mobile Slide-Down Drawer */}
+        {/* Mobile Slide-Over Off-Canvas Navigation (Touch-Friendly Native Experience) */}
         {mobileMenuOpen && (
-          <div className="fixed inset-0 top-[56px] sm:top-[90px] z-50 lg:hidden flex flex-col bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
-            <div className="bg-white flex-1 max-h-[85vh] overflow-y-auto px-4 pt-3 pb-8 shadow-2xl border-b border-slate-200 flex flex-col justify-between">
+          <div className="fixed inset-0 z-50 lg:hidden flex justify-end">
+            
+            {/* Backdrop */}
+            <div 
+              className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm transition-opacity animate-fadeIn"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+
+            {/* Slide-over Drawer Panel */}
+            <div className="relative w-full max-w-sm bg-white h-full shadow-2xl flex flex-col justify-between z-10 overflow-y-auto">
               
-              <div className="space-y-1">
-                <div className="px-2 py-1.5 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
-                  Main Navigation
+              {/* Drawer Top Header */}
+              <div>
+                <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-primary-700 flex items-center justify-center text-white shrink-0">
+                      <svg className="w-4.5 h-4.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 2v20M2 12h20"/>
+                      </svg>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="font-display font-extrabold text-sm text-slate-900 leading-tight">
+                        MEDICAL <span className="text-primary-700">SOLUTIONS</span>
+                      </span>
+                      <span className="text-[8px] uppercase tracking-wider font-semibold text-slate-400">
+                        Healthcare & Enterprise
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-2 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
+                    aria-label="Close menu"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
                 </div>
 
-                <NavLink
-                  to="/"
-                  end
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={({ isActive }) => `flex items-center justify-between p-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors ${
-                    isActive ? 'bg-primary-50 text-primary-700' : 'text-slate-800 hover:bg-slate-50'
-                  }`}
-                >
-                  <span>HOME</span>
-                </NavLink>
+                {/* Navigation Links */}
+                <div className="p-4 space-y-1">
+                  
+                  <div className="px-2 py-1 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
+                    Quick Navigation
+                  </div>
 
-                <div className="pt-2 pb-1 px-2 text-[10px] font-extrabold text-primary-700 uppercase tracking-widest">
-                  Our Sectors
-                </div>
+                  <NavLink
+                    to="/"
+                    end
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={({ isActive }) => `flex items-center justify-between p-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors ${
+                      isActive ? 'bg-primary-50 text-primary-700 font-extrabold' : 'text-slate-800 hover:bg-slate-50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Home className="w-4 h-4 text-slate-500" />
+                      <span>HOME</span>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-300" />
+                  </NavLink>
 
-                {sectors.map((sec) => {
-                  const Icon = sec.icon;
-                  return (
-                    <NavLink
-                      key={sec.path}
-                      to={sec.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={({ isActive }) => `flex items-center justify-between p-2.5 rounded-lg transition-colors ${
-                        isActive ? 'bg-primary-50 text-primary-700 font-bold border border-primary-200' : 'text-slate-700 hover:bg-slate-50'
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <Icon className="w-4 h-4 text-primary-700 shrink-0" />
-                        <div>
-                          <div className="text-xs font-bold">{sec.title}</div>
-                          <div className="text-[10px] text-slate-400 line-clamp-1">{sec.desc}</div>
+                  <div className="pt-3 pb-1 px-2 text-[10px] font-extrabold text-primary-700 uppercase tracking-widest flex items-center justify-between">
+                    <span>Our 4 Core Sectors</span>
+                    <span className="text-[9px] font-normal lowercase bg-primary-50 text-primary-700 px-1.5 py-0.5 rounded">divisions</span>
+                  </div>
+
+                  {sectors.map((sec) => {
+                    const Icon = sec.icon;
+                    return (
+                      <NavLink
+                        key={sec.path}
+                        to={sec.path}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={({ isActive }) => `flex items-center justify-between p-2.5 rounded-xl transition-colors ${
+                          isActive ? 'bg-primary-50 text-primary-700 font-bold border border-primary-200' : 'text-slate-700 hover:bg-slate-50'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="w-8 h-8 rounded-lg bg-primary-50 text-primary-700 flex items-center justify-center shrink-0">
+                            <Icon className="w-4 h-4" />
+                          </div>
+                          <div className="min-w-0">
+                            <div className="text-xs font-bold text-slate-900 truncate">{sec.title}</div>
+                            <div className="text-[10px] text-slate-400 truncate">{sec.desc}</div>
+                          </div>
                         </div>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-slate-300 shrink-0" />
-                    </NavLink>
-                  );
-                })}
+                        <ChevronRight className="w-4 h-4 text-slate-300 shrink-0 ml-2" />
+                      </NavLink>
+                    );
+                  })}
 
-                <div className="pt-2 border-t border-slate-100"></div>
+                  <div className="pt-3 border-t border-slate-100"></div>
 
-                <a
-                  href="#who-we-are"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    if (location.pathname !== '/') navigate('/#who-we-are');
-                  }}
-                  className="flex items-center gap-3 p-3 rounded-lg text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
-                >
-                  <span>WHO WE ARE</span>
-                </a>
+                  <div className="px-2 py-1 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
+                    Corporate Links
+                  </div>
 
-                <a
-                  href="#partners"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    if (location.pathname !== '/') navigate('/#partners');
-                  }}
-                  className="flex items-center gap-3 p-3 rounded-lg text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
-                >
-                  <span>PARTNERS & ALLIANCES</span>
-                </a>
+                  <a
+                    href="#who-we-are"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      if (location.pathname !== '/') navigate('/#who-we-are');
+                    }}
+                    className="flex items-center justify-between p-2.5 rounded-xl text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
+                  >
+                    <span>WHO WE ARE</span>
+                    <ChevronRight className="w-4 h-4 text-slate-300" />
+                  </a>
 
-                <a
-                  href="#media-center"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    if (location.pathname !== '/') navigate('/#media-center');
-                  }}
-                  className="flex items-center gap-3 p-3 rounded-lg text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
-                >
-                  <span>MEDIA CENTER</span>
-                </a>
+                  <a
+                    href="#partners"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      if (location.pathname !== '/') navigate('/#partners');
+                    }}
+                    className="flex items-center justify-between p-2.5 rounded-xl text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
+                  >
+                    <span>PARTNERS & ALLIANCES</span>
+                    <ChevronRight className="w-4 h-4 text-slate-300" />
+                  </a>
 
-                <NavLink
-                  to="/contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 p-3 rounded-lg text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
-                >
-                  <span>CONTACT US</span>
-                </NavLink>
+                  <a
+                    href="#media-center"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      if (location.pathname !== '/') navigate('/#media-center');
+                    }}
+                    className="flex items-center justify-between p-2.5 rounded-xl text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
+                  >
+                    <span>MEDIA CENTER</span>
+                    <ChevronRight className="w-4 h-4 text-slate-300" />
+                  </a>
+
+                  <NavLink
+                    to="/contact"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-between p-2.5 rounded-xl text-slate-800 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider"
+                  >
+                    <span>CONTACT US</span>
+                    <ChevronRight className="w-4 h-4 text-slate-300" />
+                  </NavLink>
+                </div>
               </div>
 
-              {/* Bottom Drawer Actions */}
-              <div className="pt-4 mt-4 border-t border-slate-100 space-y-2.5">
+              {/* Drawer Bottom Actions */}
+              <div className="p-4 border-t border-slate-100 bg-slate-50/60 space-y-2.5">
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
                     onOpenQuote();
                   }}
-                  className="w-full py-3.5 px-4 rounded-lg font-bold text-xs uppercase tracking-wider text-white bg-primary-700 hover:bg-primary-800 text-center shadow-sm"
+                  className="w-full py-3 px-4 rounded-xl font-bold text-xs uppercase tracking-wider text-white bg-primary-700 hover:bg-primary-800 text-center shadow-xs cursor-pointer"
                 >
                   Request a Quote
                 </button>
                 
                 <a
                   href={`tel:${companyDetails.phone.replace(/[^0-9+]/g, '')}`}
-                  className="w-full py-3 px-4 rounded-lg font-bold text-xs text-slate-800 bg-slate-100 text-center flex items-center justify-center gap-2"
+                  className="w-full py-2.5 px-4 rounded-xl font-bold text-xs text-slate-800 bg-white border border-slate-200 text-center flex items-center justify-center gap-2"
                 >
                   <Phone className="w-4 h-4 text-primary-700" />
                   <span>Call Operations: {companyDetails.phone}</span>
@@ -463,17 +517,12 @@ export default function Navbar({ onOpenQuote, onOpenSearch }) {
               </div>
 
             </div>
-            
-            <div 
-              className="flex-1"
-              onClick={() => setMobileMenuOpen(false)}
-            ></div>
           </div>
         )}
       </header>
 
       {/* Floating Bottom Quick-Action Bar on Phones (< 640px) */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 py-2 px-3 sm:hidden shadow-lg">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 py-1.5 px-3 sm:hidden shadow-lg">
         <div className="grid grid-cols-4 items-center gap-1 text-center">
           <Link
             to="/"

@@ -186,19 +186,19 @@ export default function Footer({ onOpenQuote }) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4 text-center sm:text-left">
           <p>
             &copy; {new Date().getFullYear()} {companyDetails.name}. All global rights reserved.
           </p>
 
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <span className="hover:text-slate-200 cursor-pointer transition-colors">Privacy Governance</span>
             <span className="hover:text-slate-200 cursor-pointer transition-colors">Terms of Supply</span>
             <span className="hover:text-slate-200 cursor-pointer transition-colors">Quality Manual</span>
             <button 
               onClick={scrollToTop} 
               aria-label="Scroll to top"
-              className="p-2 rounded-lg bg-navy-900 hover:bg-navy-800 text-slate-300 hover:text-white transition-colors ml-2"
+              className="p-2 rounded-lg bg-navy-900 hover:bg-navy-800 text-slate-300 hover:text-white transition-colors ml-1 cursor-pointer"
             >
               <ArrowUp className="w-4 h-4" />
             </button>

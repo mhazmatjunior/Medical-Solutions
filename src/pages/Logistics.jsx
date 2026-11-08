@@ -66,11 +66,11 @@ export default function Logistics({ onOpenQuote }) {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl space-y-5">
-            <h1 className="text-3xl sm:text-5xl lg:text-5.5xl font-extrabold tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
               End-to-End Cold Chain & Pharmaceutical Freight Logistics
             </h1>
 
-            <p className="text-sm sm:text-lg text-slate-300 leading-relaxed font-normal">
+            <p className="text-xs sm:text-base lg:text-lg text-slate-300 leading-relaxed font-normal">
               From oceanic reefer containers and chartered air cargo to priority customs clearance, GDP-validated cold storage, and direct pharmacy replenishment.
             </p>
 

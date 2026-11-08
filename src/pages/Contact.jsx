@@ -41,10 +41,10 @@ export default function Contact() {
         <div className="absolute inset-0 bg-dot-pattern opacity-10 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl space-y-4">
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
               Connect With Our Corporate Solutions Team
             </h1>
-            <p className="text-slate-300 text-sm sm:text-lg leading-relaxed">
+            <p className="text-slate-300 text-xs sm:text-base lg:text-lg leading-relaxed">
               Whether you are scheduling bulk international cold-chain freight, procuring medical devices, staffing an entire ICU wing, or reserving an ambulance fleet—our project directors are available 24/7.
             </p>
           </div>

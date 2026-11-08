@@ -66,7 +66,7 @@ export default function App() {
         />
 
         {/* Page Content */}
-        <main className="flex-1 pb-16 sm:pb-0">
+        <main className="flex-1 pb-20 sm:pb-0">
           <Routes>
             <Route path="/" element={<Home onOpenQuote={handleOpenQuote} />} />
             <Route path="/logistics" element={<Logistics onOpenQuote={handleOpenQuote} />} />
