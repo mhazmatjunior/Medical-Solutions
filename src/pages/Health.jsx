@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  Activity, 
+  Pill, 
   ShieldCheck, 
   CheckCircle2, 
   FileText, 
@@ -11,10 +11,14 @@ import {
   Building2, 
   Package, 
   ArrowRight,
-  Filter
+  Filter,
+  ShoppingBag,
+  Heart,
+  Thermometer,
+  Sparkles
 } from 'lucide-react';
 import SectionHeading from '../components/SectionHeading';
-import { healthProducts } from '../data/servicesData';
+import { pharmacyServices } from '../data/servicesData';
 
 export default function Health({ onOpenQuote }) {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -23,17 +27,101 @@ export default function Health({ onOpenQuote }) {
 
   const categories = [
     'All',
-    'Medical Equipments',
-    'Medical Devices',
-    'Consumable + Disposable',
-    'Pharmacies / Corporate'
+    'Pharmacy & OTC Medicines',
+    'Vitamins & Supplements',
+    'Home Diagnostics & Care',
+    'Medical Consumables'
   ];
 
-  const filteredProducts = healthProducts.filter(item => {
+  // Practical consumer healthcare & pharmacy catalog
+  const pharmacyProducts = [
+    {
+      id: "pharma-01",
+      name: "Essential Multivitamins & Minerals Complex",
+      category: "Vitamins & Supplements",
+      tagline: "High-absorption daily immune & energy formula",
+      desc: "Authorized distribution of daily wellness vitamins, formulated with Vitamin C, D3, Zinc, and B-complex for daily vitality.",
+      packaging: "Box of 60 Capsules (Child-Proof Cap)",
+      compliance: "GMP Certified, Ministry Approved",
+      availability: "In Stock - Wholesale & Retail"
+    },
+    {
+      id: "pharma-02",
+      name: "Digital Arm Blood Pressure Monitor",
+      category: "Home Diagnostics & Care",
+      tagline: "Clinically validated oscillometric blood pressure monitor",
+      desc: "Compact home diagnostic unit with large LCD backlit display, irregular heartbeat detector, and 120-reading dual memory.",
+      packaging: "Individual Box with Universal Cuff (22-42cm)",
+      compliance: "CE 0123 / FDA Cleared",
+      availability: "Immediate Delivery"
+    },
+    {
+      id: "pharma-03",
+      name: "Nitrile Examination Medical Gloves",
+      category: "Medical Consumables",
+      tagline: "Powder-free, textured fingertips for non-sterile and exam use",
+      desc: "Tear-resistant medical grade nitrile gloves providing barrier protection for clinics, pharmacies, and food handling.",
+      packaging: "Dispenser Box of 100 Gloves (Cases of 10 Boxes)",
+      compliance: "EN 455 Parts 1-4, ASTM D6319",
+      availability: "High Volume Stock"
+    },
+    {
+      id: "pharma-04",
+      name: "Infrared No-Touch Forehead Thermometer",
+      category: "Home Diagnostics & Care",
+      tagline: "1-second hygienic non-contact temperature measurement",
+      desc: "Accurate clinical infrared sensor with color-coded fever alarm, mute mode for night checks, and memory recall.",
+      packaging: "Retail Packaged Unit with Batteries Included",
+      compliance: "ISO 13485 / CE Approved",
+      availability: "In Stock"
+    },
+    {
+      id: "pharma-05",
+      name: "Advanced OTC Pain Relief & Antipyretic Tablets",
+      category: "Pharmacy & OTC Medicines",
+      tagline: "Fast-acting paracetamol 500mg formulation",
+      desc: "Licensed commercial pharmacy supply of essential antipyretic tablets for mild to moderate pain relief and fever reduction.",
+      packaging: "Blister Pack of 24 Tablets (Cartons of 48 Packs)",
+      compliance: "National Drug Authority Registered",
+      availability: "Licensed Pharmacy Wholesale"
+    },
+    {
+      id: "pharma-06",
+      name: "Sterile Adhesive Wound Dressing & Island Pads",
+      category: "Medical Consumables",
+      tagline: "Breathable post-surgical and acute wound protection",
+      desc: "Gentle hypo-allergenic adhesive with non-stick absorbent central pad, promoting undisturbed healing.",
+      packaging: "Box of 50 Individually Wrapped Dressings",
+      compliance: "CE Marked Sterile EO",
+      availability: "In Stock"
+    },
+    {
+      id: "pharma-07",
+      name: "Omega-3 Pure Deep Sea Fish Oil 1000mg",
+      category: "Vitamins & Supplements",
+      tagline: "Cardiovascular and cognitive health support softgels",
+      desc: "Purified molecularly distilled fish oil rich in EPA and DHA fatty acids with natural lemon flavor to prevent aftertaste.",
+      packaging: "Bottle of 120 Softgels",
+      compliance: "Heavy Metal Tested, Halal Certified",
+      availability: "In Stock"
+    },
+    {
+      id: "pharma-08",
+      name: "Antiseptic Povidone Iodine 10% Solution",
+      category: "Pharmacy & OTC Medicines",
+      tagline: "Broad-spectrum topical microbicidal skin preparation",
+      desc: "Essential first-aid antiseptic for wound cleaning, minor cuts, burns, and general pre-operative skin prep.",
+      packaging: "500ml Bottle with Precision Pour Cap",
+      compliance: "BP / USP Grade Formulation",
+      availability: "Bulk Wholesale Supply"
+    }
+  ];
+
+  const filteredProducts = pharmacyProducts.filter(item => {
     const matchesCategory = activeCategory === 'All' || item.category === activeCategory;
     const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           item.tagline.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          item.application.toLowerCase().includes(searchQuery.toLowerCase());
+                          item.desc.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -45,112 +133,95 @@ export default function Health({ onOpenQuote }) {
         <div className="absolute inset-0 bg-dot-pattern opacity-10 pointer-events-none"></div>
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-teal-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl space-y-5">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-3xl space-y-4 sm:space-y-5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold tracking-widest uppercase border border-teal-500/30">
+              <Pill className="w-3.5 h-3.5" />
+              <span>AFRA NATIONAL PHARMACY & HEALTHCARE DIVISION</span>
+            </div>
+
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
-              Hospital Equipments, Medical Devices & Clinical Consumables
+              Pharmacy Operations, Healthcare Products & Wholesale Distribution
             </h1>
 
             <p className="text-xs sm:text-base lg:text-lg text-slate-300 leading-relaxed font-normal">
-              Direct institutional procurement for hospital networks, surgical theaters, and corporate enterprises: from ICU life-support hardware to high-volume sterile consumables and pharmacy contracts.
+              A trusted commercial healthcare partner operating licensed community pharmacies, distributing authentic consumer wellness brands, and providing wholesale pharmaceutical supplies to retailers and clinics.
             </p>
 
             <div className="pt-2 flex flex-col sm:flex-row gap-2.5 sm:gap-4">
               <button
-                onClick={() => onOpenQuote('Health Supplies')}
-                className="w-full sm:w-auto px-6 py-3 rounded-xl font-semibold text-sm bg-teal-600 hover:bg-teal-500 active:bg-teal-700 transition-colors shadow-lg shadow-teal-600/30 flex items-center justify-center gap-2"
+                onClick={() => onOpenQuote('Pharmacy & Healthcare')}
+                className="w-full sm:w-auto px-6 py-3 rounded-xl font-semibold text-xs sm:text-sm bg-teal-600 hover:bg-teal-500 active:bg-teal-700 transition-colors shadow-lg shadow-teal-600/30 flex items-center justify-center gap-2 cursor-pointer"
               >
-                <span>Request Equipment & Consumable Catalog</span>
+                <span>Request Wholesale Catalog & Pricing</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <a
                 href="#catalog"
-                className="w-full sm:w-auto px-6 py-3 rounded-xl font-semibold text-sm bg-white/10 hover:bg-white/15 text-white border border-white/20 transition-colors text-center"
+                className="w-full sm:w-auto px-6 py-3 rounded-xl font-semibold text-xs sm:text-sm bg-white/10 hover:bg-white/15 text-white border border-white/20 transition-colors text-center"
               >
-                Browse Product Catalog
+                Browse Product Lines
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 4 CORE HEALTHCARE VERTICALS (Derived directly from note) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 4 CORE PHARMACY PILLARS */}
+      <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          badge="Complete Healthcare Supplies"
-          title="The Four Healthcare Supply Verticals"
-          description="Everything your facility requires from certified capital machinery to daily patient care disposables."
+          badge="Division Capabilities"
+          title="Our Pharmacy & Distribution Services"
+          description="Connecting global healthcare manufacturers with local pharmacies, retailers, and end consumers through authentic, licensed channels."
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              title: "Medical Equipments",
-              desc: "Diagnostic imaging, ICU patient monitors, surgical suites, and life support systems.",
-              icon: Activity,
-              badge: "Capital Hardware"
-            },
-            {
-              title: "Medical Devices",
-              desc: "Infusion pumps, syringe drivers, biphasic AED defibrillators, and point-of-care telemetry.",
-              icon: Package,
-              badge: "Precision Tech"
-            },
-            {
-              title: "Consumable + Disposable",
-              desc: "Sterile surgical kits, gowns, nitrile gloves, IV sets, syringes, and clinical wound dressings.",
-              icon: Layers,
-              badge: "High Volume"
-            },
-            {
-              title: "Pharmacies / Corporate",
-              desc: "Wholesale hospital formulary replenishment, corporate occupational health, and first aid.",
-              icon: Building2,
-              badge: "Enterprise Supply"
-            }
-          ].map((v, i) => {
-            const Icon = v.icon;
-            return (
-              <div 
-                key={i}
-                className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-soft hover:shadow-premium transition-all hover:border-teal-200 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-100 text-slate-600">
-                      {v.badge}
-                    </span>
+          {pharmacyServices.map((v, i) => (
+            <div 
+              key={i}
+              className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-soft hover:shadow-premium transition-all hover:border-teal-200 flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center">
+                    <Pill className="w-5 h-5" />
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-2">{v.title}</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">{v.desc}</p>
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-100 text-slate-600">
+                    {v.badge}
+                  </span>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-100">
-                  <button
-                    onClick={() => {
-                      setActiveCategory(v.title);
-                      const el = document.getElementById('catalog');
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="text-xs font-semibold text-teal-600 hover:text-teal-700 flex items-center gap-1"
-                  >
-                    Filter this category &rarr;
-                  </button>
+                <h3 className="text-base font-bold text-slate-900 mb-2">{v.title}</h3>
+                <p className="text-xs text-slate-600 leading-relaxed mb-4">{v.shortDesc}</p>
+
+                <div className="space-y-1.5 border-t border-slate-100 pt-3">
+                  {v.features.slice(0, 2).map((feat, fIdx) => (
+                    <div key={fIdx} className="flex items-start gap-1.5 text-[11px] text-slate-600">
+                      <CheckCircle2 className="w-3 h-3 text-teal-600 shrink-0 mt-0.5" />
+                      <span className="line-clamp-1">{feat}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            );
-          })}
+
+              <div className="mt-4 pt-3 border-t border-slate-100">
+                <button
+                  onClick={() => onOpenQuote(`Pharmacy Inquiry: ${v.title}`)}
+                  className="text-xs font-semibold text-teal-700 hover:text-teal-800 flex items-center gap-1 cursor-pointer"
+                >
+                  Inquire this service &rarr;
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* INTERACTIVE PRODUCT CATALOG */}
-      <section id="catalog" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* PRODUCT CATALOG & INVENTORY PORTFOLIO */}
+      <section id="catalog" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="Product Catalog"
-          title="Certified Medical Hardware & Supply Items"
-          description="Browse our primary healthcare inventory. Contact our procurement desk for bulk volume pricing and institutional tenders."
+          title="Authentic Healthcare & Pharmacy Inventory"
+          description="Browse sample items from our active distribution portfolio. Contact our commercial team for full bulk order lists and wholesale accounts."
         />
 
         {/* Filter & Search Bar */}
@@ -160,9 +231,9 @@ export default function Health({ onOpenQuote }) {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs font-semibold shrink-0 whitespace-nowrap transition-all ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
                   activeCategory === cat
-                    ? 'bg-teal-600 text-white shadow-sm'
+                    ? 'bg-teal-600 text-white shadow-xs'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
@@ -171,64 +242,59 @@ export default function Health({ onOpenQuote }) {
             ))}
           </div>
 
-          <div className="relative w-full md:w-72">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+          <div className="relative min-w-[240px]">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search catalog..."
-              className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+              placeholder="Search products by name or type..."
+              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Product Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProducts.map((prod) => (
             <div
               key={prod.id}
-              className="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-soft hover:shadow-premium transition-all duration-300 flex flex-col justify-between group"
+              className="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-soft hover:shadow-xl transition-all flex flex-col justify-between group"
             >
-              <div>
-                <div className="relative h-44 overflow-hidden bg-slate-100">
-                  <img
-                    src={prod.image}
-                    alt={prod.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
-                  <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-white/95 text-slate-800 backdrop-blur-md">
+              <div className="p-5 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
                     {prod.category}
+                  </span>
+                  <span className="text-[10px] font-medium text-emerald-600 flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3" />
+                    <span>Verified</span>
                   </span>
                 </div>
 
-                <div className="p-5 space-y-3">
-                  <h4 className="text-sm font-bold text-slate-900 group-hover:text-teal-700 transition-colors line-clamp-2">
+                <div>
+                  <h3 className="text-base font-bold text-slate-900 group-hover:text-teal-700 transition-colors">
                     {prod.name}
-                  </h4>
-                  <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
-                    {prod.tagline}
-                  </p>
-                  <div className="text-[11px] font-medium text-slate-600 bg-slate-50 p-2 rounded-lg border border-slate-100">
-                    <span className="text-slate-400 block text-[10px] uppercase font-semibold">Primary Use:</span>
-                    {prod.application}
-                  </div>
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-1 line-clamp-1">{prod.tagline}</p>
+                </div>
+
+                <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
+                  {prod.desc}
+                </p>
+
+                <div className="space-y-1 text-[11px] text-slate-500 border-t border-slate-100 pt-3">
+                  <div><strong>Packaging:</strong> {prod.packaging}</div>
+                  <div><strong>Standard:</strong> {prod.compliance}</div>
                 </div>
               </div>
 
-              <div className="p-5 pt-0 space-y-2">
+              <div className="p-5 pt-0">
                 <button
-                  onClick={() => setSelectedProduct(prod)}
-                  className="w-full py-2 rounded-xl text-xs font-semibold text-teal-700 bg-teal-50 hover:bg-teal-100 border border-teal-200/60 transition-colors"
+                  onClick={() => onOpenQuote(`Product Inquiry: ${prod.name}`)}
+                  className="w-full py-2 rounded-xl text-xs font-semibold text-white bg-teal-600 hover:bg-teal-700 transition-colors cursor-pointer"
                 >
-                  View Datasheet & Specs
-                </button>
-                <button
-                  onClick={() => onOpenQuote(`Procurement Quote: ${prod.name}`)}
-                  className="w-full py-2 rounded-xl text-xs font-semibold text-white bg-teal-600 hover:bg-teal-700 transition-colors"
-                >
-                  Request Batch Pricing
+                  Inquire Wholesale Pricing
                 </button>
               </div>
             </div>
@@ -236,91 +302,27 @@ export default function Health({ onOpenQuote }) {
         </div>
       </section>
 
-      {/* TECHNICAL SPECIFICATION MODAL */}
-      {selectedProduct && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full border border-slate-200 overflow-hidden animate-fadeIn">
-            <div className="relative h-48 overflow-hidden">
-              <img
-                src={selectedProduct.image}
-                alt={selectedProduct.name}
-                className="w-full h-full object-cover"
-              />
-              <button
-                onClick={() => setSelectedProduct(null)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-slate-900/60 hover:bg-slate-900 text-white transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
-              <div className="absolute bottom-3 left-4 text-white">
-                <span className="text-xs font-semibold text-teal-300 uppercase block">
-                  {selectedProduct.category}
-                </span>
-                <h3 className="text-lg font-bold">{selectedProduct.name}</h3>
-              </div>
-            </div>
-
-            <div className="p-6 space-y-4">
-              <div>
-                <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Technical Specifications:</h4>
-                <div className="space-y-1.5 text-xs text-slate-600">
-                  {selectedProduct.specs.map((spec, sIdx) => (
-                    <div key={sIdx} className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-teal-500 shrink-0" />
-                      <span>{spec}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs text-slate-600 space-y-1">
-                <div><strong>Clinical Application:</strong> {selectedProduct.application}</div>
-                <div><strong>Compliance:</strong> ISO 13485:2016, CE Medical Device Regulation (MDR)</div>
-                <div><strong>Standard Packaging:</strong> Hospital bulk cartons / Individual sterile peel packs</div>
-              </div>
-
-              <div className="pt-2 flex gap-3">
-                <button
-                  onClick={() => {
-                    const prodName = selectedProduct.name;
-                    setSelectedProduct(null);
-                    onOpenQuote(`Quote Request: ${prodName}`);
-                  }}
-                  className="flex-1 py-2.5 rounded-xl font-semibold text-xs text-white bg-teal-600 hover:bg-teal-700 transition-colors shadow-sm text-center"
-                >
-                  Request Official Quotation
-                </button>
-                <button
-                  onClick={() => setSelectedProduct(null)}
-                  className="px-4 py-2.5 rounded-xl font-semibold text-xs text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* CORPORATE PHARMACY & INSTITUTIONAL SUPPLY BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-r from-teal-900 to-navy-950 text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden border border-teal-800 shadow-xl">
-          <div className="max-w-3xl space-y-4">
-            <h3 className="text-2xl sm:text-3xl font-bold tracking-tight">
-              Direct Wholesale Formulary Supply for Pharmacy Networks
+      {/* PHARMACY DISTRIBUTION GUARANTEE BANNER */}
+      <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-r from-teal-900 to-slate-900 rounded-3xl p-8 sm:p-12 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 border border-teal-800">
+          <div className="max-w-2xl space-y-2">
+            <span className="text-xs font-bold uppercase tracking-widest text-teal-300">
+              COMMERCIAL PHARMACY PARTNERSHIPS
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-bold">
+              Looking to Expand Your Product Reach or Source Authentic Supplies?
             </h3>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Afra National Co. manages direct manufacturer pricing contracts for hospital networks, corporate wellness initiatives, and large pharmacy groups. We ensure guaranteed expiry buffers, batch trace authenticity, and integrated warehouse replenishment.
+            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+              We partner with global healthcare brand owners seeking regional distribution and independent pharmacies seeking dependable wholesale fulfillment.
             </p>
-            <div className="pt-4 flex flex-wrap gap-4">
-              <button
-                onClick={() => onOpenQuote('Health Supplies: Corporate Pharmacy Contract')}
-                className="px-6 py-3 rounded-xl font-semibold text-xs sm:text-sm bg-teal-500 hover:bg-teal-400 text-slate-950 transition-colors font-bold shadow-md"
-              >
-                Inquire About Wholesale Contracts
-              </button>
-            </div>
           </div>
+
+          <button
+            onClick={() => onOpenQuote('Pharmacy Distribution Partnership')}
+            className="px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider text-slate-900 bg-white hover:bg-slate-100 transition-colors shadow-sm shrink-0 cursor-pointer"
+          >
+            Contact Pharmacy Desk
+          </button>
         </div>
       </section>
 

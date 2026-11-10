@@ -5,56 +5,23 @@ import {
   Plane, 
   Warehouse, 
   FileCheck, 
-  Pill, 
-  Thermometer, 
   CheckCircle2, 
   ShieldCheck, 
   Clock, 
   ArrowRight, 
-  AlertCircle,
-  Activity,
-  Maximize2
+  Globe2,
+  Box,
+  Layers,
+  MapPin
 } from 'lucide-react';
 import SectionHeading from '../components/SectionHeading';
 import { logisticsServices } from '../data/servicesData';
 
 export default function Logistics({ onOpenQuote }) {
-  const [selectedZone, setSelectedZone] = useState('refrigerated');
-  const [calcTransport, setCalcTransport] = useState('air');
-  const [calcTemp, setCalcTemp] = useState('2-8');
-  const [calcWeight, setCalcWeight] = useState('500');
-  const [estimatedTransit, setEstimatedTransit] = useState('24 - 48 Hours');
-
-  const tempZones = [
-    {
-      id: 'ultra-low',
-      title: 'Ultra-Low Cryo (-80°C to -60°C)',
-      badge: 'Active Dry-Ice & Nitrogen',
-      desc: 'Validated shippers for mRNA vaccines, cellular therapies, biological viral vectors, and clinical trial specimens.',
-      safeguards: ['Continuous dry-ice telemetry', 'Dual temperature probes', 'Expedited tarmac priority']
-    },
-    {
-      id: 'frozen',
-      title: 'Standard Frozen (-25°C to -15°C)',
-      badge: 'Sub-Zero Controlled',
-      desc: 'Refrigerated containerized transport for human blood plasma, tissue grafts, diagnostic reagents, and enzyme preparations.',
-      safeguards: ['Automated defrost cycle lockout', 'Backup liquid CO2 injection', 'Pre-conditioned packaging']
-    },
-    {
-      id: 'refrigerated',
-      title: 'Cold Chain (+2°C to +8°C)',
-      badge: 'Core Pharmaceutical',
-      desc: 'Strictly monitored cold corridors for insulins, monoclonal antibodies, oncological infusions, and standard vaccines.',
-      safeguards: ['Real-time excursion alerts', 'Calibrated thermistors', 'GDP-certified handling']
-    },
-    {
-      id: 'ambient',
-      title: 'Controlled Ambient (+15°C to +25°C)',
-      badge: 'CRT Distribution',
-      desc: 'Insulated climate-controlled transport preventing summer heat spikes and winter freezing for tablets, capsules, and medical devices.',
-      safeguards: ['Insulated container thermal blankets', 'Continuous HVAC airflow', 'Humidity regulation']
-    }
-  ];
+  const [calcTransport, setCalcTransport] = useState('ocean');
+  const [cargoType, setCargoType] = useState('fcl');
+  const [calcWeight, setCalcWeight] = useState('container');
+  const [estimatedTransit, setEstimatedTransit] = useState('14 - 24 Days Maritime');
 
   return (
     <div className="space-y-12 sm:space-y-16 pb-16">
@@ -64,44 +31,49 @@ export default function Logistics({ onOpenQuote }) {
         <div className="absolute inset-0 bg-dot-pattern opacity-10 pointer-events-none"></div>
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary-600/20 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl space-y-5">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-3xl space-y-4 sm:space-y-5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-500/20 text-primary-300 text-xs font-bold tracking-widest uppercase border border-primary-500/30">
+              <Truck className="w-3.5 h-3.5" />
+              <span>AFRA NATIONAL LOGISTICS DIVISION</span>
+            </div>
+
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
-              End-to-End Cold Chain & Pharmaceutical Freight Logistics
+              Comprehensive Logistics & Global Supply Chain Solutions
             </h1>
 
             <p className="text-xs sm:text-base lg:text-lg text-slate-300 leading-relaxed font-normal">
-              From oceanic reefer containers and chartered air cargo to priority customs clearance, GDP-validated cold storage, and direct pharmacy replenishment.
+              A full-spectrum logistics solution provider: from maritime containerized Ocean Freight and express Air Cargo to border Customs Clearance, domestic Road Haulage, and scalable modern Warehousing.
             </p>
 
             <div className="pt-2 flex flex-col sm:flex-row gap-2.5 sm:gap-4">
               <button
-                onClick={() => onOpenQuote('Logistics')}
-                className="w-full sm:w-auto px-6 py-3 rounded-xl font-semibold text-sm bg-primary-600 hover:bg-primary-500 active:bg-primary-700 transition-colors shadow-lg shadow-primary-600/30 flex items-center justify-center gap-2"
+                onClick={() => onOpenQuote('Comprehensive Logistics')}
+                className="w-full sm:w-auto px-6 py-3 rounded-xl font-semibold text-xs sm:text-sm bg-primary-600 hover:bg-primary-500 active:bg-primary-700 transition-colors shadow-lg shadow-primary-600/30 flex items-center justify-center gap-2 cursor-pointer"
               >
-                <span>Request Freight Quote</span>
+                <span>Request Freight & Logistics Quote</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <a
                 href="#services-breakdown"
-                className="w-full sm:w-auto px-6 py-3 rounded-xl font-semibold text-sm bg-white/10 hover:bg-white/15 text-white border border-white/20 transition-colors text-center"
+                className="w-full sm:w-auto px-6 py-3 rounded-xl font-semibold text-xs sm:text-sm bg-white/10 hover:bg-white/15 text-white border border-white/20 transition-colors text-center"
               >
-                View 6 Core Logistics Capabilities
+                Explore 5 Core Service Lines
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 6 CORE LOGISTICS SERVICES (Derived from note & prompt) */}
-      <section id="services-breakdown" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 5 CORE LOGISTICS SERVICES */}
+      <section id="services-breakdown" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="Global Transport Network"
           title="Integrated Logistics Capabilities"
-          description="Six specialized operational branches engineered to preserve pharmaceutical integrity and deliver medical hardware on schedule."
+          description="Five dedicated operational branches engineered to move commercial cargo safely, optimize tariffs, and deliver on schedule."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {logisticsServices.map((service) => (
             <div
               key={service.id}
@@ -152,7 +124,7 @@ export default function Logistics({ onOpenQuote }) {
               <div className="p-6 pt-0">
                 <button
                   onClick={() => onOpenQuote(`Logistics: ${service.title}`)}
-                  className="w-full py-2.5 rounded-xl text-xs font-semibold text-primary-700 bg-primary-50 hover:bg-primary-100/80 border border-primary-200/60 transition-colors flex items-center justify-center gap-1.5"
+                  className="w-full py-2.5 rounded-xl text-xs font-semibold text-primary-700 bg-primary-50 hover:bg-primary-100/80 border border-primary-200/60 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <span>Request Route & Rate Specs</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -160,56 +132,47 @@ export default function Logistics({ onOpenQuote }) {
               </div>
             </div>
           ))}
-        </div>
-      </section>
 
-      {/* COLD CHAIN TEMPERATURE ZONES */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-10 lg:p-12 relative overflow-hidden border border-slate-800">
-          <SectionHeading
-            light
-            badge="Precision Temperature Control"
-            title="Validated Multi-Zone Cold Chain Parameters"
-            description="Our fleets and terminals support strict thermal validation from sub-zero cryogenics to controlled room temperatures."
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-            {tempZones.map((zone) => (
-              <div
-                key={zone.id}
-                onClick={() => setSelectedZone(zone.id)}
-                className={`p-5 rounded-2xl border cursor-pointer transition-all ${
-                  selectedZone === zone.id
-                    ? 'bg-primary-900/40 border-primary-500 shadow-lg'
-                    : 'bg-slate-800/60 border-slate-700 hover:border-slate-600'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-primary-500/20 text-primary-300 flex items-center justify-center">
-                    <Thermometer className="w-4 h-4" />
-                  </div>
-                  <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-700 text-slate-300">
-                    {zone.badge}
-                  </span>
+          {/* 6th Card: Customs & Brokerage Guarantee */}
+          <div className="bg-gradient-to-br from-primary-900 to-navy-950 rounded-2xl p-6 sm:p-7 text-white flex flex-col justify-between border border-primary-800 shadow-soft">
+            <div className="space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-primary-300">
+                <FileCheck className="w-5 h-5" />
+              </div>
+              <h3 className="text-xl font-bold tracking-tight">Licensed In-House Customs Brokerage</h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Our licensed customs team operates across primary sea, air, and border customs gates, accelerating cargo release and ensuring absolute regulatory compliance.
+              </p>
+              <div className="space-y-1.5 text-xs text-primary-200 pt-2">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <span>Pre-clearance documentation filing</span>
                 </div>
-                <h4 className="text-sm font-bold text-white mb-2">{zone.title}</h4>
-                <p className="text-xs text-slate-300 mb-4 leading-relaxed">{zone.desc}</p>
-                <div className="space-y-1 text-[11px] text-slate-400 border-t border-slate-700/80 pt-3">
-                  {zone.safeguards.map((s, idx) => (
-                    <div key={idx} className="flex items-center gap-1.5">
-                      <span className="w-1 h-1 rounded-full bg-primary-400"></span>
-                      <span>{s}</span>
-                    </div>
-                  ))}
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <span>Customs duty & tariff optimization</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <span>Elimination of port demurrage costs</span>
                 </div>
               </div>
-            ))}
+            </div>
+
+            <div className="pt-6">
+              <button
+                onClick={() => onOpenQuote('Logistics: Customs Clearance')}
+                className="w-full py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-white text-navy-950 hover:bg-slate-100 transition-colors shadow-sm text-center cursor-pointer"
+              >
+                Consult With Customs Broker
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* INTERACTIVE FREIGHT & TRANSIT CALCULATOR */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* INTERACTIVE FREIGHT & TRANSIT ESTIMATOR */}
+      <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-3xl border border-slate-200/80 shadow-soft p-6 sm:p-10 lg:p-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
@@ -217,10 +180,10 @@ export default function Logistics({ onOpenQuote }) {
             <div className="lg:col-span-7 space-y-6">
               <div>
                 <h3 className="text-2xl sm:text-3xl font-bold text-slate-900">
-                  Freight Transit & Compliance Estimator
+                  Freight Transit & Route Estimator
                 </h3>
-                <p className="text-slate-600 text-sm mt-1">
-                  Configure your cargo requirements to preview standard routing transit times and compliance documentation.
+                <p className="text-slate-600 text-xs sm:text-sm mt-1">
+                  Configure your consignment profile to review projected routing schedules, handling modes, and customs support.
                 </p>
               </div>
 
@@ -231,94 +194,96 @@ export default function Logistics({ onOpenQuote }) {
                     value={calcTransport}
                     onChange={(e) => {
                       setCalcTransport(e.target.value);
-                      if (e.target.value === 'air') setEstimatedTransit('24 - 48 Hours');
-                      if (e.target.value === 'road') setEstimatedTransit('3 - 5 Days Continental');
-                      if (e.target.value === 'sea') setEstimatedTransit('14 - 24 Days Maritime');
+                      if (e.target.value === 'air') setEstimatedTransit('24 - 72 Hours Air Cargo');
+                      if (e.target.value === 'road') setEstimatedTransit('2 - 5 Days Interstate Haulage');
+                      if (e.target.value === 'ocean') setEstimatedTransit('14 - 24 Days Maritime Vessel');
+                      if (e.target.value === 'storage') setEstimatedTransit('Immediate Staging & Dispatch');
                     }}
-                    className="w-full px-3 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500"
                   >
-                    <option value="air">Air Freight (Express Critical)</option>
-                    <option value="road">Land / Road (Climate Fleet)</option>
-                    <option value="sea">Ocean / Sea (FCL/LCL Reefer)</option>
+                    <option value="ocean">Ocean Freight (FCL / LCL Container)</option>
+                    <option value="air">Air Freight (Express Scheduled Cargo)</option>
+                    <option value="road">Road Transport (FTL / LTL Trucking)</option>
+                    <option value="storage">Warehousing & Storage Fulfillment</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">Thermal Zone Target</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">Cargo Classification</label>
                   <select
-                    value={calcTemp}
-                    onChange={(e) => setCalcTemp(e.target.value)}
-                    className="w-full px-3 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    value={cargoType}
+                    onChange={(e) => setCargoType(e.target.value)}
+                    className="w-full px-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500"
                   >
-                    <option value="2-8">+2°C to +8°C Cold Chain</option>
-                    <option value="15-25">+15°C to +25°C Controlled Ambient</option>
-                    <option value="sub20">-20°C Frozen Goods</option>
-                    <option value="sub80">-80°C Ultra-Low Cryo</option>
+                    <option value="fcl">Standard Commercial Goods & Dry Cargo</option>
+                    <option value="consumer">Consumer Packaged Goods & Retail Stock</option>
+                    <option value="machinery">Heavy Industrial Machinery & Equipment</option>
+                    <option value="pharma">Pharmaceutical & Healthcare Products</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">Estimated Consignment Weight</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">Consignment Volume / Size</label>
                   <select
                     value={calcWeight}
                     onChange={(e) => setCalcWeight(e.target.value)}
-                    className="w-full px-3 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500"
                   >
-                    <option value="100">Under 100 kg (Clinical Sample / Small Batch)</option>
-                    <option value="500">100 kg - 1,000 kg (Standard Pallet / Clinic)</option>
-                    <option value="5000">1,000 kg - 10,000 kg (Multi-Pallet / Bulk Hospital)</option>
-                    <option value="container">Full 20ft / 40ft Reefer Container</option>
+                    <option value="pallet">LCL / Less-than-Truckload (1 - 10 Pallets)</option>
+                    <option value="ftl">Full Truckload (FTL 24-Ton Trailer)</option>
+                    <option value="container">Full 20ft / 40ft Standard Shipping Container</option>
+                    <option value="multicontainer">Multiple Containers / Bulk Project Cargo</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">Regulatory Filing</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">Customs Brokerage</label>
                   <input
                     type="text"
                     disabled
-                    value="Expedited Green Customs Included"
-                    className="w-full px-3 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-100 text-slate-500 cursor-not-allowed"
+                    value="Licensed Border Clearance Included"
+                    className="w-full px-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 bg-slate-100 text-slate-500 cursor-not-allowed"
                   />
                 </div>
               </div>
             </div>
 
             {/* Preview Card Right */}
-            <div className="lg:col-span-5 bg-navy-950 text-white rounded-2xl p-6 sm:p-7 border border-navy-800 space-y-5">
-              <div className="flex items-center justify-between border-b border-navy-800 pb-4">
+            <div className="lg:col-span-5 bg-navy-950 text-white rounded-2xl p-6 sm:p-7 border border-navy-800 space-y-4">
+              <div className="flex items-center justify-between border-b border-navy-800 pb-3">
                 <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold">Projected Logistics SLA</span>
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                  Guaranteed Cold Chain
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary-500/20 text-primary-300 border border-primary-500/30">
+                  Confirmed SLA
                 </span>
               </div>
 
-              <div className="space-y-3">
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-slate-400">Estimated Door-to-Door:</span>
-                  <span className="text-lg font-bold text-white">{estimatedTransit}</span>
+              <div className="space-y-2.5">
+                <div className="flex justify-between items-center text-xs sm:text-sm">
+                  <span className="text-slate-400">Estimated Transit Schedule:</span>
+                  <span className="text-base sm:text-lg font-bold text-white">{estimatedTransit}</span>
                 </div>
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-slate-400">Active Temperature Range:</span>
-                  <span className="font-semibold text-primary-300">
-                    {calcTemp === '2-8' ? '+2°C to +8°C' : calcTemp === '15-25' ? '+15°C to +25°C' : calcTemp === 'sub20' ? '-20°C Frozen' : '-80°C Cryo'}
+                <div className="flex justify-between items-center text-xs sm:text-sm">
+                  <span className="text-slate-400">Cargo Management:</span>
+                  <span className="font-semibold text-primary-300 capitalize">
+                    {cargoType === 'fcl' ? 'General Commercial' : cargoType === 'consumer' ? 'Packaged Retail' : cargoType === 'machinery' ? 'Heavy Machinery' : 'Healthcare Supply'}
                   </span>
                 </div>
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-slate-400">Data Logger Telematics:</span>
-                  <span className="font-semibold text-white">Continuous GPS & Thermal Sync</span>
+                <div className="flex justify-between items-center text-xs sm:text-sm">
+                  <span className="text-slate-400">Tracking & Telematics:</span>
+                  <span className="font-semibold text-white">Full Vessel / GPS Satellite Sync</span>
                 </div>
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-slate-400">Customs Clearance Lane:</span>
-                  <span className="font-semibold text-emerald-400">Direct Medical Priority</span>
+                <div className="flex justify-between items-center text-xs sm:text-sm">
+                  <span className="text-slate-400">Customs Channel:</span>
+                  <span className="font-semibold text-emerald-400">Fast-Track Green Channel</span>
                 </div>
               </div>
 
               <div className="pt-2">
                 <button
-                  onClick={() => onOpenQuote(`Logistics Quote: ${calcTransport.toUpperCase()} Freight (${calcTemp})`)}
-                  className="w-full py-3 px-4 rounded-xl font-semibold text-sm text-white bg-primary-600 hover:bg-primary-500 active:bg-primary-700 transition-colors shadow-md text-center block"
+                  onClick={() => onOpenQuote(`Logistics Quote: ${calcTransport.toUpperCase()} Freight (${cargoType})`)}
+                  className="w-full py-3 px-4 rounded-xl font-semibold text-xs sm:text-sm text-white bg-primary-600 hover:bg-primary-500 active:bg-primary-700 transition-colors shadow-md text-center block cursor-pointer"
                 >
-                  Book Priority Shipment Review
+                  Book Commercial Route Review
                 </button>
               </div>
             </div>
@@ -327,20 +292,24 @@ export default function Logistics({ onOpenQuote }) {
         </div>
       </section>
 
-      {/* PHARMACY & MEDICINE DISTRIBUTION NETWORK */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-3xl p-8 sm:p-12 border border-blue-200/60">
+      {/* WAREHOUSING & STORAGE CAPABILITIES */}
+      <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-r from-slate-900 to-navy-950 text-white rounded-3xl p-8 sm:p-12 border border-slate-800">
           <div className="max-w-3xl space-y-4">
-            <h3 className="text-2xl sm:text-3xl font-bold text-slate-900">
-              Medicines & Pharmacy Dispensing Logistics Network
+            <div className="w-10 h-10 rounded-xl bg-primary-500/20 text-primary-400 flex items-center justify-center">
+              <Warehouse className="w-5 h-5" />
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-bold">
+              120,000+ Sq. Meters of Strategic Warehousing & Distribution Hubs
             </h3>
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              We connect pharmaceutical manufacturers and institutional buyers directly with local hospital pharmacies and retail chains. Our specialized track-and-trace system prevents counterfeit medications while enabling automated daily stock replenishment with guaranteed shelf-life validity.
+            <p className="text-slate-300 text-xs sm:text-sm sm:text-base leading-relaxed">
+              Our modern warehousing hubs feature heavy-duty racking, dedicated cross-docking loading bays, electronic inventory WMS integration, and 24/7 security. We provide commercial storage buffers for manufacturers, importers, and regional distributors.
             </p>
-            <div className="pt-2 flex flex-wrap gap-4 text-xs font-semibold text-slate-700">
-              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary-600" /> Daily hospital formulary restocking</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary-600" /> Controlled narcotics security protocol</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary-600" /> Automated ERP API integration</span>
+            <div className="pt-2 flex flex-wrap gap-4 text-xs font-semibold text-slate-300">
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary-400" /> High-bay pallet racking</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary-400" /> Real-time WMS inventory portal</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary-400" /> Order pick, pack & labeling</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary-400" /> 24/7 fire suppression & surveillance</span>
             </div>
           </div>
         </div>

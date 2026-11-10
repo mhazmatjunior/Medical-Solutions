@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Search, X, ArrowRight, Truck, Activity, Users, Car, ShieldCheck } from 'lucide-react';
+import { Search, X, ArrowRight, Truck, Pill, Activity, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { logisticsServices, healthProducts, manpowerRoles, rentalFleet } from '../data/servicesData';
+import { logisticsServices, pharmacyServices, healthProducts } from '../data/servicesData';
 
 export default function SearchModal({ isOpen, onClose }) {
   const [query, setQuery] = useState('');
@@ -18,7 +18,7 @@ export default function SearchModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  // Flatten searchable entries
+  // Flatten searchable entries focused on the 2 pillars
   const allItems = [
     ...logisticsServices.map(item => ({
       type: 'Logistics',
@@ -28,28 +28,20 @@ export default function SearchModal({ isOpen, onClose }) {
       icon: Truck,
       badge: item.badge
     })),
+    ...pharmacyServices.map(item => ({
+      type: 'Pharmacy & Healthcare',
+      title: item.title,
+      desc: item.shortDesc,
+      path: '/pharmacy',
+      icon: Pill,
+      badge: item.badge
+    })),
     ...healthProducts.map(item => ({
-      type: 'Health',
+      type: 'Healthcare Products',
       title: item.name,
       desc: item.tagline,
-      path: '/health',
+      path: '/pharmacy',
       icon: Activity,
-      badge: item.category
-    })),
-    ...manpowerRoles.map(item => ({
-      type: 'Manpower',
-      title: item.title,
-      desc: item.subtitle,
-      path: '/manpower',
-      icon: Users,
-      badge: item.category
-    })),
-    ...rentalFleet.map(item => ({
-      type: 'Rental',
-      title: item.title,
-      desc: item.description,
-      path: '/rental',
-      icon: Car,
       badge: item.category
     }))
   ];

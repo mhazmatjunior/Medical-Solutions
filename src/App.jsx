@@ -30,7 +30,7 @@ export default function App() {
     // If dept contains a colon or description, normalize to the category
     let cleanedDept = dept;
     if (dept.toLowerCase().includes('logistics')) cleanedDept = 'Logistics';
-    else if (dept.toLowerCase().includes('health') || dept.toLowerCase().includes('supply') || dept.toLowerCase().includes('procurement')) cleanedDept = 'Health Supplies';
+    else if (dept.toLowerCase().includes('pharmacy') || dept.toLowerCase().includes('health') || dept.toLowerCase().includes('supply') || dept.toLowerCase().includes('procurement')) cleanedDept = 'Pharmacy & Healthcare';
     else if (dept.toLowerCase().includes('manpower') || dept.toLowerCase().includes('staffing')) cleanedDept = 'Manpower Solutions';
     else if (dept.toLowerCase().includes('rental') || dept.toLowerCase().includes('fleet')) cleanedDept = 'Rental & Fleet';
     
@@ -70,6 +70,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home onOpenQuote={handleOpenQuote} />} />
             <Route path="/logistics" element={<Logistics onOpenQuote={handleOpenQuote} />} />
+            <Route path="/pharmacy" element={<Health onOpenQuote={handleOpenQuote} />} />
+            <Route path="/healthcare" element={<Health onOpenQuote={handleOpenQuote} />} />
             <Route path="/health" element={<Health onOpenQuote={handleOpenQuote} />} />
             <Route path="/manpower" element={<Manpower onOpenQuote={handleOpenQuote} />} />
             <Route path="/rental" element={<Rental onOpenQuote={handleOpenQuote} />} />
